@@ -3,4 +3,7 @@
  <validTo isNull="true"/>
  <Description locale="de"/>
  <Generation validFrom="2022-01-01"/>
+ <TableContentUsage structureUsage="TariftabelleHausrat" templateValueStatus="defined">
+  <TableContentName>produkte_2022.Tariftabelle-Kompakt</TableContentName>
+ </TableContentUsage>
 </ProductCmpt>

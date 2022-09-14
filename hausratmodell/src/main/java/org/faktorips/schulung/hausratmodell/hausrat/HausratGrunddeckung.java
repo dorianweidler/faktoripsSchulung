@@ -133,6 +133,23 @@ public class HausratGrunddeckung extends AbstractModelObject
     }
 
     /**
+     * Gibt den im Produktbaustein referenzierten Tabelleninhalt der Rolle
+     * TariftabelleHausrat zurueck.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public TariftabelleHausrat getTariftabelleHausrat() {
+        HausratGrunddeckungstyp productCmpt = getHausratGrunddeckungstyp();
+        if (productCmpt == null) {
+            return null;
+        }
+        return productCmpt.getTariftabelleHausrat();
+    }
+
+    /**
      * Initialisiert Attribute mit ihren Vorgabewerten.
      *
      * @restrainedmodifiable
