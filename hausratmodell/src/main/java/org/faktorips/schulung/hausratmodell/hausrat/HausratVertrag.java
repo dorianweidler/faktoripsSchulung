@@ -393,8 +393,9 @@ public class HausratVertrag extends AbstractModelObject implements IDeltaSupport
 
     /**
      * Gibt den erlaubten Wertebereich fuer das Attribut vorschlagVersSumme zurueck.
-     * 
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsAllowedValues("vorschlagVersSumme")
@@ -407,8 +408,9 @@ public class HausratVertrag extends AbstractModelObject implements IDeltaSupport
      * Gibt den Wert des Attributs vorschlagVersSumme zurueck.
      * <p>
      * Vorschlag für die Versicherungssumme. Wird auf Basis der Wohnfläche bestimmt.
-     * 
+     *
      * @since 0.0.1
+     *
      * @restrainedmodifiable
      */
     @IpsAttribute(name = "vorschlagVersSumme", kind = AttributeKind.DERIVED_ON_THE_FLY, valueSetKind = ValueSetKind.AllValues)
@@ -421,8 +423,9 @@ public class HausratVertrag extends AbstractModelObject implements IDeltaSupport
 
     /**
      * Gibt den erlaubten Wertebereich fuer das Attribut versSumme zurueck.
-     * 
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsAllowedValues("versSumme")
@@ -435,8 +438,9 @@ public class HausratVertrag extends AbstractModelObject implements IDeltaSupport
      * Gibt den Wert des Attributs versSumme zurueck.
      * <p>
      * Die Versicherungssumme.
-     * 
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsAttribute(name = "versSumme", kind = AttributeKind.CHANGEABLE, valueSetKind = ValueSetKind.Range)
@@ -449,8 +453,9 @@ public class HausratVertrag extends AbstractModelObject implements IDeltaSupport
      * Setzt den Wert des Attributs versSumme.
      * <p>
      * Die Versicherungssumme.
-     * 
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsAttributeSetter("versSumme")
