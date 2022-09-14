@@ -1,7 +1,11 @@
 package org.faktorips.schulung.hausratmodell.hausrat;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.faktorips.runtime.ClassloaderRuntimeRepository;
 import org.faktorips.runtime.IRuntimeRepository;
+import org.faktorips.values.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -28,4 +32,23 @@ public class HausratProduktTest {
         System.out.println("Wohnfläche (erlaubte Werte):        " + hrKompakt.getAllowedValuesForWohnflaeche());
     }
 
+    @Test
+    void testGetVorschlagVersSumme() {
+        // Erzeugen eines Hausratvertrags mit der Factorymethode des Produktes
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(100);
+        assertThat(hausratVertrag.getVorschlagVersSumme(), is(Money.euro(60_000)));
+    }
+
+    @Test
+    void testGetVorschlagVersSumme_KeineWohnflaeche() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        assertThat(hausratVertrag.getVorschlagVersSumme(), is(Money.NULL));
+    }
+
+    @Test
+    void testGetVorschlagVersSumme_KeinProdukt() {
+        HausratVertrag hausratVertrag = new HausratVertrag();
+        assertThat(hausratVertrag.getVorschlagVersSumme(), is(Money.NULL));
+    }
 }

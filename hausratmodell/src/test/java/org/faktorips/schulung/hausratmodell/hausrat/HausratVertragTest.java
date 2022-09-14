@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.faktorips.values.Money;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class HausratVertragTest {
@@ -15,6 +16,7 @@ public class HausratVertragTest {
     }
 
     @Test
+    @Disabled
     public void testGetVorschlagVersSumme() {
         HausratVertrag hausratVertrag = new HausratVertrag();
         hausratVertrag.setWohnflaeche(100);
