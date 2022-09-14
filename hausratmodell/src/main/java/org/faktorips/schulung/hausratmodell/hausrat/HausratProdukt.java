@@ -48,7 +48,7 @@ import org.faktorips.runtime.annotation.IpsGenerated;
  * @generated
  */
 @IpsProductCmptType(name = "hausrat.HausratProdukt")
-@IpsAttributes({ "produktname", "kurzbezeichnung" })
+@IpsAttributes({ "produktname", "kurzbezeichnung", "vorschlagVersSummeProQm" })
 @IpsAssociations({ "HausratGrunddeckungstyp" })
 @IpsConfigures(HausratVertrag.class)
 @IpsDocumented(bundleName = "org.faktorips.schulung.hausratmodell.model-label-and-descriptions", defaultLocale = "de")
@@ -79,6 +79,14 @@ public class HausratProdukt extends ProductComponent {
      */
     public static final String PROPERTY_KURZBEZEICHNUNG = "kurzbezeichnung";
     /**
+     * Diese Konstante enthält den Namen der Eigenschaft vorschlagVersSummeProQm.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    public static final String PROPERTY_VORSCHLAGVERSSUMMEPROQM = "vorschlagVersSummeProQm";
+    /**
      * Membervariable für die Produkteigenschaft Produktname.
      *
      * @since 0.0.1
@@ -96,6 +104,14 @@ public class HausratProdukt extends ProductComponent {
      */
     private String kurzbezeichnung;
 
+    /**
+     * Membervariable für die Produkteigenschaft VorschlagVersSummeProQm.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    private Money vorschlagVersSummeProQm;
     /**
      * Membervariable fuer den Vorgabewert der Vertragseigenschaft zahlweise.
      *
@@ -268,6 +284,47 @@ public class HausratProdukt extends ProductComponent {
     @IpsGenerated
     protected final void setKurzbezeichnungInternal(String newValue) {
         this.kurzbezeichnung = newValue;
+    }
+
+    /**
+     * Gibt den Wert der Eigenschaft vorschlagVersSummeProQm zurück.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAttribute(name = "vorschlagVersSummeProQm", kind = AttributeKind.CONSTANT, valueSetKind = ValueSetKind.AllValues)
+    @IpsGenerated
+    public Money getVorschlagVersSummeProQm() {
+        return vorschlagVersSummeProQm;
+    }
+
+    /**
+     * Setzt den Wert der Eigenschaft vorschlagVersSummeProQm.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAttributeSetter("vorschlagVersSummeProQm")
+    @IpsGenerated
+    public void setVorschlagVersSummeProQm(Money newValue) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        setVorschlagVersSummeProQmInternal(newValue);
+    }
+
+    /**
+     * Setzt den Wert der Eigenschaft vorschlagVersSummeProQm.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsGenerated
+    protected final void setVorschlagVersSummeProQmInternal(Money newValue) {
+        this.vorschlagVersSummeProQm = newValue;
     }
 
     /**
@@ -567,6 +624,7 @@ public class HausratProdukt extends ProductComponent {
         super.doInitPropertiesFromXml(configMap);
         doInitProduktname(configMap);
         doInitKurzbezeichnung(configMap);
+        doInitVorschlagVersSummeProQm(configMap);
         doInitZahlweise(configMap);
         doInitWohnflaeche(configMap);
         doInitVersSumme(configMap);
@@ -593,6 +651,18 @@ public class HausratProdukt extends ProductComponent {
         if (configElement != null) {
             String value = ValueToXmlHelper.getValueFromElement(configElement, ValueToXmlHelper.XML_TAG_VALUE);
             this.kurzbezeichnung = value;
+        }
+    }
+
+    /**
+     * @generated
+     */
+    @IpsGenerated
+    private void doInitVorschlagVersSummeProQm(Map<String, Element> configMap) {
+        Element configElement = configMap.get(PROPERTY_VORSCHLAGVERSSUMMEPROQM);
+        if (configElement != null) {
+            String value = ValueToXmlHelper.getValueFromElement(configElement, ValueToXmlHelper.XML_TAG_VALUE);
+            this.vorschlagVersSummeProQm = Money.valueOf(value);
         }
     }
 
