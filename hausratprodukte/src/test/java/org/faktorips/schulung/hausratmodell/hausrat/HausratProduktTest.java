@@ -51,4 +51,30 @@ public class HausratProduktTest {
         HausratVertrag hausratVertrag = new HausratVertrag();
         assertThat(hausratVertrag.getVorschlagVersSumme(), is(Money.NULL));
     }
+
+    @Test
+    void testGetTarifzone() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("47110");
+        assertThat(hausratVertrag.getTarifzone(), is("V"));
+    }
+
+    @Test
+    void testGetTarifzone_KeinePLZ() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        assertThat(hausratVertrag.getTarifzone(), is("I"));
+    }
+
+    @Test
+    void testGetTarifzone_PLZnichtInTabelle() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("80639");
+        assertThat(hausratVertrag.getTarifzone(), is("I"));
+    }
+
+    @Test
+    void testGetTarifzone_KeinProdukt() {
+        HausratVertrag hausratVertrag = new HausratVertrag();
+        assertThat(hausratVertrag.getTarifzone(), is("I"));
+    }
 }

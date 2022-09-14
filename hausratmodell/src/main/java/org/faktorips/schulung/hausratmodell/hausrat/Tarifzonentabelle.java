@@ -120,8 +120,9 @@ public class Tarifzonentabelle extends Table<TarifzonentabelleRow> {
      * Durchsucht den Inhalt dieser Tabelle nach einem Eintrag entsprechend der
      * Suchkriterien und gibt diesen zurueck. Null wird zurueckgegeben falls kein
      * Eintrag gefunden wird.
-     * 
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsGenerated
@@ -133,8 +134,9 @@ public class Tarifzonentabelle extends Table<TarifzonentabelleRow> {
      * Durchsucht den Inhalt dieser Tabelle nach einem Eintrag entsprechend der
      * Suchkriterien und gibt diesen zurück. Eine 'Null-Row' wird zurueckgegeben,
      * falls kein Eintrag gefunden wird.
-     * 
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsGenerated
@@ -146,10 +148,12 @@ public class Tarifzonentabelle extends Table<TarifzonentabelleRow> {
      * Durchsucht den Inhalt dieser Tabelle nach einem Eintrag entsprechend der
      * Suchkriterien und gibt diesen zurück. Eine Exception wird geworfen, falls
      * kein Eintrag gefunden wird.
-     * 
+     *
      * @return Gibt die gesuchte Zeile zurück.
      * @throws IllegalArgumentException Wenn keine Zeile gefunden wurde.
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsGenerated

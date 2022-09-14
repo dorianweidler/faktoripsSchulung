@@ -408,6 +408,14 @@ public class HausratVertrag extends AbstractModelObject
     @IpsGenerated
     public String getTarifzone() {
         // begin-user-code
+        IProductComponent productComponent = getProductComponent();
+        if (productComponent != null) {
+            Tarifzonentabelle tabelle = productComponent.getRepository().getTable(Tarifzonentabelle.class);
+            TarifzonentabelleRow tarifzonentabelleRow = tabelle.findRow(plz);
+            if (tarifzonentabelleRow != null) {
+                return tarifzonentabelleRow.getTarifzone();
+            }
+        }
         return "I";
         // end-user-code
     }
