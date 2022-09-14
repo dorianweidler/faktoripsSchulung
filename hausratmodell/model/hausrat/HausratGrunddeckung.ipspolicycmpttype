@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PolicyCmptType xmlns="http://www.faktorzehn.org" since="0.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/PolicyCmptType.xsd" xml:space="preserve">
+<PolicyCmptType xmlns="http://www.faktorzehn.org" configurableByProductCmptType="true" productCmptType="hausrat.HausratGrunddeckungstyp" since="0.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/PolicyCmptType.xsd" xml:space="preserve">
  <Label locale="de"/>
- <Description locale="de"/>
+ <Description locale="de">Die Grunddeckung des Vertrages.</Description>
  <Association associationType="reverseComp" configurable="true" inverseAssociation="HausratGrunddeckung" maxCardinality="1" minCardinality="1" modifier="published" since="0.0.1" target="hausrat.HausratVertrag" targetRoleSingular="HausratVertrag">
   <Label locale="de"/>
   <Description locale="de">Der Vertrag der Grunddeckung.</Description>
