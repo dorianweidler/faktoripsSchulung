@@ -77,4 +77,38 @@ public class HausratProduktTest {
         HausratVertrag hausratVertrag = new HausratVertrag();
         assertThat(hausratVertrag.getTarifzone(), is("I"));
     }
+
+    @Test
+    void testBerechneJahresbasisbeitrag() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("47110");
+        hausratVertrag.setVersSumme(Money.euro(60_000));
+        // Grunddeckungstyp holen, der dem Produkt zugeordnet ist.
+        HausratGrunddeckungstyp hausratGrunddeckungstyp = hrKompakt.getHausratGrunddeckungstyp();
+        // Grunddeckung erzeugen und zum Vertag hinzufügen
+        HausratGrunddeckung hausratGrunddeckung = hausratVertrag.newHausratGrunddeckung(hausratGrunddeckungstyp);
+        hausratGrunddeckung.berechneJahresbasisbeitrag();
+        assertThat(hausratGrunddeckung.getJahresbasisbeitrag(), is(Money.euro(84)));
+    }
+
+    @Test
+    void testBerechneJahresbasisbeitrag_KeinePLZ() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        // keine PLZ -> Tarifzone I
+        hausratVertrag.setVersSumme(Money.euro(60_000));
+        HausratGrunddeckung hausratGrunddeckung = hausratVertrag
+                .newHausratGrunddeckung(hrKompakt.getHausratGrunddeckungstyp());
+        hausratGrunddeckung.berechneJahresbasisbeitrag();
+        assertThat(hausratGrunddeckung.getJahresbasisbeitrag(), is(Money.euro(36)));
+    }
+
+    @Test
+    void testBerechneJahresbasisbeitrag_KeineVersSumme() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("47110");
+        HausratGrunddeckung hausratGrunddeckung = hausratVertrag
+                .newHausratGrunddeckung(hrKompakt.getHausratGrunddeckungstyp());
+        hausratGrunddeckung.berechneJahresbasisbeitrag();
+        assertThat(hausratGrunddeckung.getJahresbasisbeitrag(), is(Money.NULL));
+    }
 }
