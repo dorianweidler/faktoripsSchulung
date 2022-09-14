@@ -52,7 +52,7 @@ import org.faktorips.runtime.annotation.IpsGenerated;
  * @generated
  */
 @IpsPolicyCmptType(name = "hausrat.HausratGrunddeckung")
-@IpsAttributes({ "jahresbasisbeitrag" })
+@IpsAttributes({ "jahresbasisbeitrag", "beitragGemaessZahlweise" })
 @IpsAssociations({ "HausratVertrag" })
 @IpsConfiguredBy(HausratGrunddeckungstyp.class)
 @IpsDocumented(bundleName = "org.faktorips.schulung.hausratmodell.model-label-and-descriptions", defaultLocale = "de")
@@ -93,6 +93,24 @@ public class HausratGrunddeckung extends AbstractModelObject
      */
     @IpsDefaultValue("jahresbasisbeitrag")
     public static final Money DEFAULT_VALUE_FOR_JAHRESBASISBEITRAG = Money.NULL;
+    /**
+     * Diese Konstante enthaelt den Namen der Eigenschaft beitragGemaessZahlweise.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    public static final String PROPERTY_BEITRAGGEMAESSZAHLWEISE = "beitragGemaessZahlweise";
+    /**
+     * Gibt die maximal erlaubten Werte fuer die Eigenschaft beitragGemaessZahlweise
+     * zurueck.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    public static final ValueSet<Money> MAX_ALLOWED_VALUES_FOR_BEITRAG_GEMAESS_ZAHLWEISE = new UnrestrictedValueSet<>(
+            true);
     /**
      * Membervariable fuer jahresbasisbeitrag.
      *
@@ -166,6 +184,38 @@ public class HausratGrunddeckung extends AbstractModelObject
     @IpsGenerated
     public Money getJahresbasisbeitrag() {
         return jahresbasisbeitrag;
+    }
+
+    /**
+     * Gibt den erlaubten Wertebereich fuer das Attribut beitragGemaessZahlweise
+     * zurueck.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAllowedValues("beitragGemaessZahlweise")
+    @IpsGenerated
+    public ValueSet<Money> getAllowedValuesForBeitragGemaessZahlweise() {
+        return MAX_ALLOWED_VALUES_FOR_BEITRAG_GEMAESS_ZAHLWEISE;
+    }
+
+    /**
+     * Gibt den Wert des Attributs beitragGemaessZahlweise zurueck.
+     *
+     * @since 0.0.1
+     *
+     * @restrainedmodifiable
+     */
+    @IpsAttribute(name = "beitragGemaessZahlweise", kind = AttributeKind.DERIVED_ON_THE_FLY, valueSetKind = ValueSetKind.AllValues)
+    @IpsGenerated
+    public Money getBeitragGemaessZahlweise() {
+        // begin-user-code
+        Zahlweise zahlweise = getHausratVertrag().getZahlweise();
+        if (zahlweise == null || Zahlweise.EINMALZAHLUNG == zahlweise || jahresbasisbeitrag.isNull())
+            return Money.NULL;
+        return jahresbasisbeitrag.divide(zahlweise.getZahlungenProJahr(), RoundingMode.HALF_UP);
+        // end-user-code
     }
 
     /**

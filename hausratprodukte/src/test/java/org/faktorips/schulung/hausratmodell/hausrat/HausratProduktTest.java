@@ -111,4 +111,53 @@ public class HausratProduktTest {
         hausratGrunddeckung.berechneJahresbasisbeitrag();
         assertThat(hausratGrunddeckung.getJahresbasisbeitrag(), is(Money.NULL));
     }
+
+    @Test
+    void testBerechneBeitragGemaessZahlweise() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("47110");
+        hausratVertrag.setVersSumme(Money.euro(60_000));
+        hausratVertrag.setZahlweise(Zahlweise.HALBJAEHRLICH);
+        HausratGrunddeckung hausratGrunddeckung = hausratVertrag
+                .newHausratGrunddeckung(hrKompakt.getHausratGrunddeckungstyp());
+        hausratGrunddeckung.berechneJahresbasisbeitrag();
+        assertThat(hausratGrunddeckung.getBeitragGemaessZahlweise(), is(Money.euro(42)));
+    }
+
+    @Test
+    void testBerechneBeitragGemaessZahlweise_KeinJahresbasisbeitrag() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("47110");
+        hausratVertrag.setVersSumme(Money.euro(60_000));
+        hausratVertrag.setZahlweise(Zahlweise.HALBJAEHRLICH);
+        HausratGrunddeckung hausratGrunddeckung = hausratVertrag
+                .newHausratGrunddeckung(hrKompakt.getHausratGrunddeckungstyp());
+        // keine Berechnung
+        // hausratGrunddeckung.berechneJahresbasisbeitrag();
+        assertThat(hausratGrunddeckung.getBeitragGemaessZahlweise(), is(Money.NULL));
+    }
+
+    @Test
+    void testBerechneBeitragGemaessZahlweise_KeineZahlweise() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("47110");
+        hausratVertrag.setVersSumme(Money.euro(60_000));
+        hausratVertrag.setZahlweise(null);
+        HausratGrunddeckung hausratGrunddeckung = hausratVertrag
+                .newHausratGrunddeckung(hrKompakt.getHausratGrunddeckungstyp());
+        hausratGrunddeckung.berechneJahresbasisbeitrag();
+        assertThat(hausratGrunddeckung.getBeitragGemaessZahlweise(), is(Money.NULL));
+    }
+
+    @Test
+    void testBerechneBeitragGemaessZahlweise_Einmalzahlung() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setPlz("47110");
+        hausratVertrag.setVersSumme(Money.euro(60_000));
+        hausratVertrag.setZahlweise(Zahlweise.EINMALZAHLUNG);
+        HausratGrunddeckung hausratGrunddeckung = hausratVertrag
+                .newHausratGrunddeckung(hrKompakt.getHausratGrunddeckungstyp());
+        hausratGrunddeckung.berechneJahresbasisbeitrag();
+        assertThat(hausratGrunddeckung.getBeitragGemaessZahlweise(), is(Money.NULL));
+    }
 }
