@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <FaktorIps-TableOfContents productDataVersion="0.0.1" xmlversion="3.0">
+ <EnumContent implementationClass="org.faktorips.schulung.hausratmodell.Risikoklasse" ipsObjectId="model.Risikoklasse" ipsObjectQualifiedName="Risikoklasse.Type"/>
  <PolicyCmptType implementationClass="org.faktorips.schulung.hausratmodell.hausrat.HausratGrunddeckung" ipsObjectId="hausrat.HausratGrunddeckung" ipsObjectQualifiedName="hausrat.HausratGrunddeckung"/>
  <ProductCmptType implementationClass="org.faktorips.schulung.hausratmodell.hausrat.HausratGrunddeckungstyp" ipsObjectId="hausrat.HausratGrunddeckungstyp" ipsObjectQualifiedName="hausrat.HausratGrunddeckungstyp"/>
  <ProductCmptType implementationClass="org.faktorips.schulung.hausratmodell.hausrat.HausratProdukt" ipsObjectId="hausrat.HausratProdukt" ipsObjectQualifiedName="hausrat.HausratProdukt"/>
