@@ -10,6 +10,14 @@
    <AllValues containsNull="true"/>
   </ValueSet>
  </Attribute>
+ <Attribute changingOverTime="false" datatype="String" modifier="published" name="kurzbezeichnung" since="0.0.1" visible="true">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Der technische Name des Produkts.</Description>
+  <ValueSet abstract="false">
+   <AllValues containsNull="true"/>
+  </ValueSet>
+ </Attribute>
  <Category defaultForProductCmptTypeAttributes="true" name="Eigenschaften" position="left">
   <Label locale="de"/>
   <Description locale="de"/>

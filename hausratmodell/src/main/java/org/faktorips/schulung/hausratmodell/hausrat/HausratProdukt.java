@@ -24,7 +24,7 @@ import org.faktorips.runtime.annotation.IpsGenerated;
  * @generated
  */
 @IpsProductCmptType(name = "hausrat.HausratProdukt")
-@IpsAttributes({ "produktname" })
+@IpsAttributes({ "produktname", "kurzbezeichnung" })
 @IpsConfigures(HausratVertrag.class)
 @IpsDocumented(bundleName = "org.faktorips.schulung.hausratmodell.model-label-and-descriptions", defaultLocale = "de")
 public class HausratProdukt extends ProductComponent {
@@ -38,6 +38,14 @@ public class HausratProdukt extends ProductComponent {
      */
     public static final String PROPERTY_PRODUKTNAME = "produktname";
     /**
+     * Diese Konstante enthält den Namen der Eigenschaft kurzbezeichnung.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    public static final String PROPERTY_KURZBEZEICHNUNG = "kurzbezeichnung";
+    /**
      * Membervariable für die Produkteigenschaft Produktname.
      *
      * @since 0.0.1
@@ -45,6 +53,15 @@ public class HausratProdukt extends ProductComponent {
      * @generated
      */
     private String produktname;
+
+    /**
+     * Membervariable für die Produkteigenschaft Kurzbezeichnung.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    private String kurzbezeichnung;
 
     /**
      * Erzeugt eine neue Instanz von HausratProdukt.
@@ -117,6 +134,50 @@ public class HausratProdukt extends ProductComponent {
     }
 
     /**
+     * Gibt den Wert der Eigenschaft kurzbezeichnung zurück.
+     * <p>
+     * Der technische Name des Produkts.
+     * 
+     * @since 0.0.1
+     * @generated
+     */
+    @IpsAttribute(name = "kurzbezeichnung", kind = AttributeKind.CONSTANT, valueSetKind = ValueSetKind.AllValues)
+    @IpsGenerated
+    public String getKurzbezeichnung() {
+        return kurzbezeichnung;
+    }
+
+    /**
+     * Setzt den Wert der Eigenschaft kurzbezeichnung.
+     * <p>
+     * Der technische Name des Produkts.
+     * 
+     * @since 0.0.1
+     * @generated
+     */
+    @IpsAttributeSetter("kurzbezeichnung")
+    @IpsGenerated
+    public void setKurzbezeichnung(String newValue) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        setKurzbezeichnungInternal(newValue);
+    }
+
+    /**
+     * Setzt den Wert der Eigenschaft kurzbezeichnung.
+     * <p>
+     * Der technische Name des Produkts.
+     * 
+     * @since 0.0.1
+     * @generated
+     */
+    @IpsGenerated
+    protected final void setKurzbezeichnungInternal(String newValue) {
+        this.kurzbezeichnung = newValue;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @generated
@@ -126,6 +187,7 @@ public class HausratProdukt extends ProductComponent {
     protected void doInitPropertiesFromXml(Map<String, Element> configMap) {
         super.doInitPropertiesFromXml(configMap);
         doInitProduktname(configMap);
+        doInitKurzbezeichnung(configMap);
     }
 
     /**
@@ -137,6 +199,18 @@ public class HausratProdukt extends ProductComponent {
         if (configElement != null) {
             String value = ValueToXmlHelper.getValueFromElement(configElement, ValueToXmlHelper.XML_TAG_VALUE);
             this.produktname = value;
+        }
+    }
+
+    /**
+     * @generated
+     */
+    @IpsGenerated
+    private void doInitKurzbezeichnung(Map<String, Element> configMap) {
+        Element configElement = configMap.get(PROPERTY_KURZBEZEICHNUNG);
+        if (configElement != null) {
+            String value = ValueToXmlHelper.getValueFromElement(configElement, ValueToXmlHelper.XML_TAG_VALUE);
+            this.kurzbezeichnung = value;
         }
     }
 
