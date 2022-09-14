@@ -119,7 +119,7 @@ public class HausratProdukt extends ProductComponent {
      *
      * @generated
      */
-    private Integer defaultValueZahlweise = null;
+    private Zahlweise defaultValueZahlweise = null;
     /**
      * Instanzvariable fuer den Wertebereich des Attributs zahlweise.
      *
@@ -127,7 +127,7 @@ public class HausratProdukt extends ProductComponent {
      *
      * @generated
      */
-    private OrderedValueSet<Integer> allowedValuesForZahlweise = HausratVertrag.MAX_ALLOWED_VALUES_FOR_ZAHLWEISE;
+    private OrderedValueSet<Zahlweise> allowedValuesForZahlweise = HausratVertrag.MAX_ALLOWED_VALUES_FOR_ZAHLWEISE;
     /**
      * Membervariable fuer den Vorgabewert der Vertragseigenschaft wohnflaeche.
      *
@@ -336,7 +336,7 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsDefaultValue("zahlweise")
     @IpsGenerated
-    public Integer getDefaultValueZahlweise() {
+    public Zahlweise getDefaultValueZahlweise() {
         return defaultValueZahlweise;
     }
 
@@ -349,7 +349,7 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsDefaultValueSetter("zahlweise")
     @IpsGenerated
-    public void setDefaultValueZahlweise(Integer defaultValueZahlweise) {
+    public void setDefaultValueZahlweise(Zahlweise defaultValueZahlweise) {
         if (getRepository() != null && !getRepository().isModifiable()) {
             throw new IllegalRepositoryModificationException();
         }
@@ -365,7 +365,7 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsAllowedValues("zahlweise")
     @IpsGenerated
-    public ValueSet<Integer> getAllowedValuesForZahlweise() {
+    public ValueSet<Zahlweise> getAllowedValuesForZahlweise() {
         return allowedValuesForZahlweise;
     }
 
@@ -381,11 +381,11 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsAllowedValuesSetter("zahlweise")
     @IpsGenerated
-    public void setAllowedValuesForZahlweise(ValueSet<Integer> allowedValuesForZahlweise) {
+    public void setAllowedValuesForZahlweise(ValueSet<Zahlweise> allowedValuesForZahlweise) {
         if (getRepository() != null && !getRepository().isModifiable()) {
             throw new IllegalRepositoryModificationException();
         }
-        this.allowedValuesForZahlweise = (OrderedValueSet<Integer>) allowedValuesForZahlweise;
+        this.allowedValuesForZahlweise = (OrderedValueSet<Zahlweise>) allowedValuesForZahlweise;
     }
 
     /**
@@ -675,7 +675,8 @@ public class HausratProdukt extends ProductComponent {
                 .get(ValueToXmlHelper.CONFIGURED_DEFAULT_PREFIX + HausratVertrag.PROPERTY_ZAHLWEISE);
         if (defaultValueElement != null) {
             String value = ValueToXmlHelper.getValueFromElement(defaultValueElement);
-            defaultValueZahlweise = IpsStringUtils.isEmpty(value) ? null : Integer.valueOf(value);
+            defaultValueZahlweise = IpsStringUtils.isEmpty(value) ? null
+                    : Zahlweise.getValueByZahlungenProJahr(Integer.valueOf(value));
         }
         Element valueSetElement = configMap
                 .get(ValueToXmlHelper.CONFIGURED_VALUE_SET_PREFIX + HausratVertrag.PROPERTY_ZAHLWEISE);
@@ -683,10 +684,10 @@ public class HausratProdukt extends ProductComponent {
             EnumValues values = ValueToXmlHelper.getEnumValueSetFromElement(valueSetElement,
                     ValueToXmlHelper.XML_TAG_VALUE_SET);
             if (values != null) {
-                List<Integer> enumValues = new ArrayList<>();
+                List<Zahlweise> enumValues = new ArrayList<>();
                 for (int i = 0; i < values.getNumberOfValues(); i++) {
-                    enumValues.add(
-                            IpsStringUtils.isEmpty(values.getValue(i)) ? null : Integer.valueOf(values.getValue(i)));
+                    enumValues.add(IpsStringUtils.isEmpty(values.getValue(i)) ? null
+                            : Zahlweise.getValueByZahlungenProJahr(Integer.valueOf(values.getValue(i))));
                 }
                 allowedValuesForZahlweise = new OrderedValueSet<>(enumValues, values.containsNull(), null);
             }

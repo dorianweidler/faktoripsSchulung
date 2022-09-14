@@ -14,28 +14,28 @@ import org.faktorips.runtime.annotation.IpsGenerated;
  * @generated
  */
 @IpsDocumented(bundleName = "org.faktorips.schulung.hausratmodell.model-label-and-descriptions", defaultLocale = "de")
-@IpsEnumType(name = "hausrat.Zahlweise", attributeNames = { "id", "name" })
+@IpsEnumType(name = "hausrat.Zahlweise", attributeNames = { "zahlungenProJahr", "name" })
 public enum Zahlweise {
     /**
      * @generated
      */
-    MONATLICH("12", "Monatlich"),
+    MONATLICH(Integer.valueOf(12), "Monatlich"),
     /**
      * @generated
      */
-    QUARTALSWEISE("4", "Quartalsweise"),
+    QUARTALSWEISE(Integer.valueOf(4), "Quartalsweise"),
     /**
      * @generated
      */
-    HALBJAEHRLICH("2", "Halbj\u00E4hrlich"),
+    HALBJAEHRLICH(Integer.valueOf(2), "Halbj\u00E4hrlich"),
     /**
      * @generated
      */
-    JAEHRLICH("1", "J\u00E4hrlich"),
+    JAEHRLICH(Integer.valueOf(1), "J\u00E4hrlich"),
     /**
      * @generated
      */
-    EINMALZAHLUNG("0", "Einmalzahlung")
+    EINMALZAHLUNG(Integer.valueOf("0"), "Einmalzahlung")
 
     ;
 
@@ -44,7 +44,7 @@ public enum Zahlweise {
      *
      * @generated
      */
-    private static final Map<String, Zahlweise> ID_MAP;
+    private static final Map<Integer, Zahlweise> ID_MAP;
     /**
      * In diesem static Block wird die ID-Map mit allen Enum-Werten initialisiert.
      *
@@ -53,7 +53,7 @@ public enum Zahlweise {
     static {
         ID_MAP = new HashMap<>();
         for (Zahlweise value : values()) {
-            ID_MAP.put(value.id, value);
+            ID_MAP.put(value.zahlungenProJahr, value);
         }
     }
 
@@ -62,7 +62,7 @@ public enum Zahlweise {
      *
      * @generated
      */
-    private final String id;
+    private final Integer zahlungenProJahr;
     /**
      * @since 0.0.1
      *
@@ -76,22 +76,22 @@ public enum Zahlweise {
      * @generated
      */
     @IpsGenerated
-    private Zahlweise(String id, String name) {
-        this.id = id;
+    private Zahlweise(Integer zahlungenProJahr, String name) {
+        this.zahlungenProJahr = zahlungenProJahr;
         this.name = name;
     }
 
     /**
-     * Gibt den Aufzählungswert für den angegebenen Parameter <code>id</code>
-     * zurueck. Gibt <code>null</code> zurück, wenn kein entsprechender
-     * Aufzählungswert gefunden wird, oder der Parameter <code>id</code>
-     * <code>null</code> ist.
+     * Gibt den Aufzählungswert für den angegebenen Parameter
+     * <code>zahlungenProJahr</code> zurueck. Gibt <code>null</code> zurück, wenn
+     * kein entsprechender Aufzählungswert gefunden wird, oder der Parameter
+     * <code>zahlungenProJahr</code> <code>null</code> ist.
      *
      * @generated
      */
     @IpsGenerated
-    public static final Zahlweise getValueById(String id) {
-        return ID_MAP.get(id);
+    public static final Zahlweise getValueByZahlungenProJahr(Integer zahlungenProJahr) {
+        return ID_MAP.get(zahlungenProJahr);
     }
 
     /**
@@ -113,9 +113,10 @@ public enum Zahlweise {
     }
 
     /**
-     * Gibt den Aufzählungswert für den angegebenen Parameter <code>id</code>
-     * zurück. Falls für den gegebenen Parameter kein entsprechender Aufzählungswert
-     * gefunden wird, wird eine {@link IllegalArgumentException} geworfen.
+     * Gibt den Aufzählungswert für den angegebenen Parameter
+     * <code>zahlungenProJahr</code> zurück. Falls für den gegebenen Parameter kein
+     * entsprechender Aufzählungswert gefunden wird, wird eine
+     * {@link IllegalArgumentException} geworfen.
      *
      * @throws IllegalArgumentException falls kein passender Aufzählungswert
      *                                  existiert
@@ -123,11 +124,11 @@ public enum Zahlweise {
      * @generated
      */
     @IpsGenerated
-    public static final Zahlweise getExistingValueById(String id) {
-        if (ID_MAP.containsKey(id)) {
-            return ID_MAP.get(id);
+    public static final Zahlweise getExistingValueByZahlungenProJahr(Integer zahlungenProJahr) {
+        if (ID_MAP.containsKey(zahlungenProJahr)) {
+            return ID_MAP.get(zahlungenProJahr);
         } else {
-            throw new IllegalArgumentException("No enum value with id " + id);
+            throw new IllegalArgumentException("No enum value with zahlungenProJahr " + zahlungenProJahr);
         }
     }
 
@@ -158,8 +159,8 @@ public enum Zahlweise {
      * @generated
      */
     @IpsGenerated
-    public static final boolean isValueById(String id) {
-        return getValueById(id) != null;
+    public static final boolean isValueByZahlungenProJahr(Integer zahlungenProJahr) {
+        return getValueByZahlungenProJahr(zahlungenProJahr) != null;
     }
 
     /**
@@ -174,16 +175,16 @@ public enum Zahlweise {
     }
 
     /**
-     * Gibt den Wert des Attributs id zurück.
+     * Gibt den Wert des Attributs zahlungenProJahr zurück.
      *
      * @since 0.0.1
      *
      * @generated
      */
-    @IpsEnumAttribute(name = "id", identifier = true, unique = true)
+    @IpsEnumAttribute(name = "zahlungenProJahr", identifier = true, unique = true)
     @IpsGenerated
-    public String getId() {
-        return id;
+    public Integer getZahlungenProJahr() {
+        return zahlungenProJahr;
     }
 
     /**
@@ -207,6 +208,6 @@ public enum Zahlweise {
     @Override
     @IpsGenerated
     public String toString() {
-        return "Zahlweise: " + id + '(' + name + ')';
+        return "Zahlweise: " + zahlungenProJahr + '(' + name + ')';
     }
 }

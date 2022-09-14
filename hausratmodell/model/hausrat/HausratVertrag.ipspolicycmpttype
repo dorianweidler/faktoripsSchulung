@@ -6,23 +6,26 @@
   <Label locale="de"/>
   <Description locale="de">Die Grunddeckung des Vertrages.</Description>
  </Association>
- <Attribute attributeType="changeable" changingOverTime="false" datatype="Integer" modifier="published" name="zahlweise" since="0.0.1" valueSetConfiguredByProduct="true">
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="hausrat.Zahlweise" modifier="published" name="zahlweise" since="0.0.1" valueSetConfiguredByProduct="true">
   <DefaultValue isNull="true"/>
   <Label locale="de"/>
   <Description locale="de">Die Zahlweise des Vertrages.</Description>
   <ValueSet abstract="false">
    <Enum>
     <Value>
-     <Data>1</Data>
-    </Value>
-    <Value>
-     <Data>2</Data>
+     <Data>12</Data>
     </Value>
     <Value>
      <Data>4</Data>
     </Value>
     <Value>
-     <Data>12</Data>
+     <Data>2</Data>
+    </Value>
+    <Value>
+     <Data>1</Data>
+    </Value>
+    <Value>
+     <Data>0</Data>
     </Value>
    </Enum>
   </ValueSet>
