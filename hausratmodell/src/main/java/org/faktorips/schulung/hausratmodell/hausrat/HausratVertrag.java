@@ -23,6 +23,7 @@ import org.faktorips.runtime.model.annotation.IpsAllowedValues;
 import org.faktorips.runtime.model.annotation.IpsAttribute;
 import org.faktorips.runtime.model.type.AttributeKind;
 import org.faktorips.runtime.model.type.ValueSetKind;
+import org.faktorips.runtime.model.annotation.IpsConfiguredAttribute;
 import org.faktorips.runtime.model.annotation.IpsAttributeSetter;
 import org.faktorips.runtime.model.annotation.IpsAssociation;
 import org.faktorips.runtime.model.type.AssociationKind;
@@ -303,7 +304,7 @@ public class HausratVertrag extends AbstractModelObject
     @IpsAllowedValues("zahlweise")
     @IpsGenerated
     public ValueSet<Integer> getAllowedValuesForZahlweise() {
-        return MAX_ALLOWED_VALUES_FOR_ZAHLWEISE;
+        return getHausratProdukt().getAllowedValuesForZahlweise();
     }
 
     /**
@@ -316,6 +317,7 @@ public class HausratVertrag extends AbstractModelObject
      * @generated
      */
     @IpsAttribute(name = "zahlweise", kind = AttributeKind.CHANGEABLE, valueSetKind = ValueSetKind.Enum)
+    @IpsConfiguredAttribute(changingOverTime = false)
     @IpsGenerated
     public Integer getZahlweise() {
         return zahlweise;
@@ -420,7 +422,7 @@ public class HausratVertrag extends AbstractModelObject
     @IpsAllowedValues("wohnflaeche")
     @IpsGenerated
     public ValueSet<Integer> getAllowedValuesForWohnflaeche() {
-        return MAX_ALLOWED_RANGE_FOR_WOHNFLAECHE;
+        return getHausratProdukt().getAllowedValuesForWohnflaeche();
     }
 
     /**
@@ -433,6 +435,7 @@ public class HausratVertrag extends AbstractModelObject
      * @generated
      */
     @IpsAttribute(name = "wohnflaeche", kind = AttributeKind.CHANGEABLE, valueSetKind = ValueSetKind.Range)
+    @IpsConfiguredAttribute(changingOverTime = false)
     @IpsGenerated
     public Integer getWohnflaeche() {
         return wohnflaeche;
@@ -493,7 +496,7 @@ public class HausratVertrag extends AbstractModelObject
     @IpsAllowedValues("versSumme")
     @IpsGenerated
     public ValueSet<Money> getAllowedValuesForVersSumme() {
-        return MAX_ALLOWED_RANGE_FOR_VERS_SUMME;
+        return getHausratProdukt().getAllowedValuesForVersSumme();
     }
 
     /**
@@ -506,6 +509,7 @@ public class HausratVertrag extends AbstractModelObject
      * @generated
      */
     @IpsAttribute(name = "versSumme", kind = AttributeKind.CHANGEABLE, valueSetKind = ValueSetKind.Range)
+    @IpsConfiguredAttribute(changingOverTime = false)
     @IpsGenerated
     public Money getVersSumme() {
         return versSumme;
@@ -611,6 +615,11 @@ public class HausratVertrag extends AbstractModelObject
     @Override
     @IpsGenerated
     public void initialize() {
+        if (getHausratProdukt() != null) {
+            setZahlweise(getHausratProdukt().getDefaultValueZahlweise());
+            setWohnflaeche(getHausratProdukt().getDefaultValueWohnflaeche());
+            setVersSumme(getHausratProdukt().getDefaultValueVersSumme());
+        }
         // begin-user-code
         // end-user-code
     }

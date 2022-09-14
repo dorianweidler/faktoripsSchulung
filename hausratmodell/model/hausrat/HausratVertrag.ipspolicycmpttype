@@ -6,7 +6,7 @@
   <Label locale="de"/>
   <Description locale="de">Die Grunddeckung des Vertrages.</Description>
  </Association>
- <Attribute attributeType="changeable" changingOverTime="true" datatype="Integer" modifier="published" name="zahlweise" since="0.0.1">
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="Integer" modifier="published" name="zahlweise" since="0.0.1" valueSetConfiguredByProduct="true">
   <DefaultValue isNull="true"/>
   <Label locale="de"/>
   <Description locale="de">Die Zahlweise des Vertrages.</Description>
@@ -46,7 +46,7 @@ für den zu zahlenden Beitrag.</Description>
    <AllValues containsNull="true"/>
   </ValueSet>
  </Attribute>
- <Attribute attributeType="changeable" changingOverTime="true" datatype="Integer" modifier="published" name="wohnflaeche" since="0.0.1">
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="Integer" modifier="published" name="wohnflaeche" since="0.0.1" valueSetConfiguredByProduct="true">
   <DefaultValue isNull="true"/>
   <Label locale="de"/>
   <Description locale="de">Die Wohnfläche des versicherten Hausrats in Quadratmetern.</Description>
@@ -67,7 +67,7 @@ Wohnfläche bestimmt.</Description>
    <AllValues containsNull="true"/>
   </ValueSet>
  </Attribute>
- <Attribute attributeType="changeable" changingOverTime="true" datatype="Money" modifier="published" name="versSumme" since="0.0.1">
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="Money" modifier="published" name="versSumme" since="0.0.1" valueSetConfiguredByProduct="true">
   <DefaultValue isNull="true"/>
   <Label locale="de"/>
   <Description locale="de">Die Versicherungssumme.</Description>
