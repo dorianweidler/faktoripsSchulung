@@ -344,7 +344,7 @@ public class HausratVertrag extends AbstractModelObject implements IDeltaSupport
     @IpsGenerated
     public String getTarifzone() {
         // begin-user-code
-        return null;
+        return "I";
         // end-user-code
     }
 
@@ -415,7 +415,7 @@ public class HausratVertrag extends AbstractModelObject implements IDeltaSupport
     @IpsGenerated
     public Money getVorschlagVersSumme() {
         // begin-user-code
-        return Money.NULL;
+        return Money.euro(650).multiply(getWohnflaeche());
         // end-user-code
     }
 
