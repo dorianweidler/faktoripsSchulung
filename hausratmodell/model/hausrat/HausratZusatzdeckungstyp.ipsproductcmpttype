@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ProductCmptType2 xmlns="http://www.faktorzehn.org" changingOverTime="false" configurationForPolicyCmptType="true" policyCmptType="hausrat.HausratZusatzdeckung" since="0.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/ProductCmptType2.xsd" xml:space="preserve">
+<ProductCmptType2 xmlns="http://www.faktorzehn.org" changingOverTime="false" configurationForPolicyCmptType="true" instancesIcon="icons/zusatzdeckung.png" policyCmptType="hausrat.HausratZusatzdeckung" since="0.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/ProductCmptType2.xsd" xml:space="preserve">
  <Label locale="de"/>
  <Description locale="de"/>
  <Attribute category="Versicherungssumme" changingOverTime="false" datatype="Decimal" modifier="published" name="versSummenFaktor" since="0.0.1" visible="true">
