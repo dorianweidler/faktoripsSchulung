@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.faktorips.runtime.ClassloaderRuntimeRepository;
 import org.faktorips.runtime.IRuntimeRepository;
+import org.faktorips.schulung.hausratmodell.Risikoklasse;
 import org.faktorips.values.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -159,5 +160,10 @@ public class HausratProduktTest {
                 .newHausratGrunddeckung(hrKompakt.getHausratGrunddeckungstyp());
         hausratGrunddeckung.berechneJahresbasisbeitrag();
         assertThat(hausratGrunddeckung.getBeitragGemaessZahlweise(), is(Money.NULL));
+    }
+
+    @Test
+    void testErweiterbareAufzählung() {
+        repository.getEnumValues(Risikoklasse.class).forEach(System.out::println);
     }
 }
