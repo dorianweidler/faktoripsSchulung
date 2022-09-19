@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCase xmlns="http://www.faktorzehn.org" testCaseType="hausrat.BerechnungsTest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/TestCase.xsd" xml:space="preserve">
+ <Description locale="de"/>
+ <PolicyCmptTypeObject name="HR-Kompakt 2022-01" policyCmptType="" productCmpt="produkte_2022.HR-Kompakt 2022-01" testPolicyCmptType="HausratVertrag">
+  <AttributeValue testAttribute="tarifzone">
+   <Value>V</Value>
+  </AttributeValue>
+  <AttributeValue testAttribute="vorschlagVersSumme">
+   <Value>60000.00 EUR</Value>
+  </AttributeValue>
+  <AttributeValue testAttribute="plz">
+   <Value>47110</Value>
+  </AttributeValue>
+  <AttributeValue testAttribute="versSumme">
+   <Value>60000.00 EUR</Value>
+  </AttributeValue>
+  <AttributeValue testAttribute="wohnflaeche">
+   <Value>100</Value>
+  </AttributeValue>
+  <AttributeValue testAttribute="zahlweise">
+   <Value>12</Value>
+  </AttributeValue>
+  <Link target="" testPolicyCmptType="HausratGrunddeckung">
+   <PolicyCmptTypeObject name="HRD-Kompakt 2022-01" policyCmptType="" productCmpt="produkte_2022.HRD-Kompakt 2022-01" testPolicyCmptType="HausratGrunddeckung">
+    <AttributeValue testAttribute="beitragGemaessZahlweise">
+     <Value>7.00 EUR</Value>
+    </AttributeValue>
+    <AttributeValue testAttribute="jahresbasisbeitrag">
+     <Value>84.00 EUR</Value>
+    </AttributeValue>
+   </PolicyCmptTypeObject>
+  </Link>
+  <Link target="" testPolicyCmptType="HausratZusatzdeckung">
+   <PolicyCmptTypeObject name="Fahrraddiebstahl 2022-01" policyCmptType="" productCmpt="produkte_2022.Fahrraddiebstahl 2022-01" testPolicyCmptType="HausratZusatzdeckung">
+    <AttributeValue testAttribute="versSumme">
+     <Value>600.00 EUR</Value>
+    </AttributeValue>
+    <AttributeValue testAttribute="jahresbasisbeitrag">
+     <Value>60.00 EUR</Value>
+    </AttributeValue>
+   </PolicyCmptTypeObject>
+  </Link>
+  <Link target="" testPolicyCmptType="HausratZusatzdeckung">
+   <PolicyCmptTypeObject name="Überspannung 2022-01" policyCmptType="" productCmpt="produkte_2022.Überspannung 2022-01" testPolicyCmptType="HausratZusatzdeckung">
+    <AttributeValue testAttribute="versSumme">
+     <Value>3000.00 EUR</Value>
+    </AttributeValue>
+    <AttributeValue testAttribute="jahresbasisbeitrag">
+     <Value>120.00 EUR</Value>
+    </AttributeValue>
+   </PolicyCmptTypeObject>
+  </Link>
+ </PolicyCmptTypeObject>
+</TestCase>

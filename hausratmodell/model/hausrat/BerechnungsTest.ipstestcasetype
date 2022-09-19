@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseType xmlns="http://www.faktorzehn.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/TestCaseType.xsd" xml:space="preserve">
+ <Description locale="de"/>
+ <PolicyCmptTypeParameter association="" maxInstances="1" minInstances="1" name="HausratVertrag" policyCmptType="hausrat.HausratVertrag" requiresProductCmpt="true" testParameterType="combined">
+  <Description locale="de"/>
+  <TestAttribute attribute="" datatype="String" name="tarifzone" policyCmptType="" testAttributeType="expectedResult">
+   <Description locale="de"/>
+  </TestAttribute>
+  <TestAttribute attribute="" datatype="Money" name="vorschlagVersSumme" policyCmptType="" testAttributeType="expectedResult">
+   <Description locale="de"/>
+  </TestAttribute>
+  <TestAttribute attribute="plz" datatype="" name="plz" policyCmptType="" testAttributeType="input">
+   <Description locale="de"/>
+  </TestAttribute>
+  <TestAttribute attribute="versSumme" datatype="" name="versSumme" policyCmptType="" testAttributeType="input">
+   <Description locale="de"/>
+  </TestAttribute>
+  <TestAttribute attribute="wohnflaeche" datatype="" name="wohnflaeche" policyCmptType="" testAttributeType="input">
+   <Description locale="de"/>
+  </TestAttribute>
+  <TestAttribute attribute="zahlweise" datatype="" name="zahlweise" policyCmptType="" testAttributeType="input">
+   <Description locale="de"/>
+  </TestAttribute>
+  <PolicyCmptTypeParameter association="HausratGrunddeckung" maxInstances="1" minInstances="1" name="HausratGrunddeckung" policyCmptType="hausrat.HausratGrunddeckung" requiresProductCmpt="true" testParameterType="combined">
+   <Description locale="de"/>
+   <TestAttribute attribute="" datatype="Money" name="beitragGemaessZahlweise" policyCmptType="" testAttributeType="expectedResult">
+    <Description locale="de"/>
+   </TestAttribute>
+   <TestAttribute attribute="jahresbasisbeitrag" datatype="" name="jahresbasisbeitrag" policyCmptType="" testAttributeType="expectedResult">
+    <Description locale="de"/>
+   </TestAttribute>
+  </PolicyCmptTypeParameter>
+  <PolicyCmptTypeParameter association="HausratZusatzdeckung" maxInstances="2147483647" minInstances="0" name="HausratZusatzdeckung" policyCmptType="hausrat.HausratZusatzdeckung" requiresProductCmpt="true" testParameterType="combined">
+   <Description locale="de"/>
+   <TestAttribute attribute="" datatype="Money" name="versSumme" policyCmptType="" testAttributeType="expectedResult">
+    <Description locale="de"/>
+   </TestAttribute>
+   <TestAttribute attribute="" datatype="Money" name="jahresbasisbeitrag" policyCmptType="" testAttributeType="expectedResult">
+    <Description locale="de"/>
+   </TestAttribute>
+  </PolicyCmptTypeParameter>
+ </PolicyCmptTypeParameter>
+</TestCaseType>

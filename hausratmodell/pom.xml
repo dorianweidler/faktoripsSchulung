@@ -30,6 +30,11 @@
             <version>${faktor-ips.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.faktorips</groupId>
+            <artifactId>faktorips-runtime-groovy</artifactId>
+            <version>${faktor-ips.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
