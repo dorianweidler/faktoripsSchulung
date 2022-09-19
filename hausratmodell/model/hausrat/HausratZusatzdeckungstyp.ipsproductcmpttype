@@ -4,7 +4,7 @@
  <Description locale="de"/>
  <Attribute category="Versicherungssumme" changingOverTime="false" datatype="Decimal" modifier="published" name="versSummenFaktor" since="0.0.1" visible="true">
   <DefaultValue isNull="true"/>
-  <Label locale="de"/>
+  <Label locale="de" value="Versicherungssummenfaktor"/>
   <Description locale="de"/>
   <ValueSet abstract="false">
    <AllValues containsNull="true"/>
@@ -12,7 +12,7 @@
  </Attribute>
  <Attribute category="Versicherungssumme" changingOverTime="false" datatype="Money" modifier="published" name="maximaleVersSumme" since="0.0.1" visible="true">
   <DefaultValue isNull="true"/>
-  <Label locale="de"/>
+  <Label locale="de" value="Maximale Versicherungssumme"/>
   <Description locale="de"/>
   <ValueSet abstract="false">
    <AllValues containsNull="true"/>

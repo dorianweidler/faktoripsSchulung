@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ProductCmptType2 xmlns="http://www.faktorzehn.org" changingOverTime="false" configurationForPolicyCmptType="true" instancesIcon="icons/grunddeckung.png" policyCmptType="hausrat.HausratGrunddeckung" since="0.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/ProductCmptType2.xsd" xml:space="preserve">
- <Label locale="de"/>
+ <Label locale="de" value="Grunddeckungstypen"/>
  <Description locale="de">Die Grunddeckung des Vertrages.</Description>
  <TableStructureUsage category="Beitragsberechnung" changingOverTime="false" modifier="published" roleName="TariftabelleHausrat" since="0.0.1">
   <Label locale="de"/>
