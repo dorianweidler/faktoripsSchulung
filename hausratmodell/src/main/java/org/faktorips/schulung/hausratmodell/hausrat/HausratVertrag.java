@@ -54,6 +54,7 @@ import java.util.HashMap;
 import org.faktorips.runtime.IModelObjectVisitor;
 import org.faktorips.runtime.MessageList;
 import org.faktorips.runtime.IValidationContext;
+import org.faktorips.runtime.validation.GenericRelevanceValidation;
 import org.faktorips.runtime.Severity;
 import org.faktorips.runtime.model.annotation.IpsValidationRule;
 import org.faktorips.runtime.Message;
@@ -1226,6 +1227,7 @@ public class HausratVertrag extends AbstractModelObject
         if (!super.validateSelf(ml, context)) {
             return STOP_VALIDATION;
         }
+        ml.add(GenericRelevanceValidation.of(this, HausratVertrag.class, PROPERTY_VERSSUMME, context));
         if (!pruefeWohnflaeche(ml, context)) {
             return STOP_VALIDATION;
         }
@@ -1319,16 +1321,19 @@ public class HausratVertrag extends AbstractModelObject
     }
 
     /**
+     *
      * Fuehrt die Regel pruefePlz aus und fuegt eine Message an die uebergebene
      * MessageList an, wenn die Regel einen nicht validen Zustand feststellt.
-     * 
+     *
      * @param ml      Liste, der Fehler bei der Validierung in Form von Messages
      *                hinzugefügt werden
      * @param context der Kontext der Validierung
      * @return <code>true</code>, wenn die Validierung nach Ausführung dieser Regel
      *         fortgesetzt werden soll, <code>false</code> wenn sie abgebrochen
      *         werden soll.
+     *
      * @since 0.0.1
+     *
      * @restrainedmodifiable
      */
     @IpsValidationRule(name = "pruefePlz", msgCode = MSG_CODE_PRUEFE_PLZ, severity = Severity.ERROR)
@@ -1346,8 +1351,9 @@ public class HausratVertrag extends AbstractModelObject
     /**
      * Erzeugt die Message, die in das Ergebnis der Validierung aufgenommen wird,
      * wenn die Regel pruefePlz einen nicht validen Zustand melden soll.
-     * 
+     *
      * @since 0.0.1
+     *
      * @generated
      */
     @IpsGenerated
