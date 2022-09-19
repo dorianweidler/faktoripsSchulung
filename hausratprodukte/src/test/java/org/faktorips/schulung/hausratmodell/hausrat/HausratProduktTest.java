@@ -22,6 +22,7 @@ import org.faktorips.runtime.ObjectProperty;
 import org.faktorips.runtime.Severity;
 import org.faktorips.runtime.ValidationContext;
 import org.faktorips.runtime.formula.groovy.GroovyFormulaEvaluatorFactory;
+import org.faktorips.runtime.validation.GenericRelevanceValidation;
 import org.faktorips.schulung.hausratmodell.Risikoklasse;
 import org.faktorips.values.Money;
 import org.junit.jupiter.api.BeforeAll;
@@ -375,6 +376,8 @@ public class HausratProduktTest {
         hausratVertrag.setVersSumme(Money.euro(100_000));
         MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
         assertThat(validationMessages.isEmpty(), is(true));
+        // IPS-Matcher
+        assertThat(validationMessages, containsNoErrorMessage());
     }
 
     @Test
@@ -393,5 +396,16 @@ public class HausratProduktTest {
         assertThat(message.getText(), containsString("2000000.00 EUR"));
         assertThat(message.getInvalidObjectProperties(),
                 hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_VERSSUMME)));
+        // IPS-Matcher
+        assertThat(validationMessages, containsErrorMessage());
+        assertThat(validationMessages, hasMessageWithSeverity(Severity.ERROR));
+        assertThat(validationMessages, hasErrorMessage(GenericRelevanceValidation.Error.ValueNotInValueSet
+                .getDefaultMessageCode(HausratVertrag.class, HausratVertrag.PROPERTY_VERSSUMME)));
+
+        assertThat(message, hasInvalidObject(hausratVertrag, HausratVertrag.PROPERTY_VERSSUMME));
+        assertThat(message, hasSeverity(Severity.ERROR));
+        assertThat(message, containsText("Versicherungssumme"));
+        assertThat(message, containsText("10000.00 EUR"));
+        assertThat(message, containsText("2000000.00 EUR"));
     }
 }
