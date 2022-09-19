@@ -31,12 +31,17 @@ import org.faktorips.runtime.CardinalityRange;
 import org.faktorips.runtime.model.annotation.IpsAssociationLinks;
 import org.w3c.dom.Element;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import org.faktorips.runtime.internal.ValueToXmlHelper;
 import org.faktorips.runtime.internal.IpsStringUtils;
 import org.faktorips.runtime.internal.EnumValues;
 import java.util.List;
 import org.faktorips.runtime.IProductComponent;
 import java.util.ArrayList;
+import org.faktorips.runtime.util.ProductComponentLinks;
+import org.faktorips.runtime.model.annotation.IpsAssociationRemover;
+import java.util.Collection;
+import java.util.Collections;
 import org.faktorips.runtime.internal.Range;
 import org.faktorips.runtime.annotation.IpsGenerated;
 
@@ -49,7 +54,7 @@ import org.faktorips.runtime.annotation.IpsGenerated;
  */
 @IpsProductCmptType(name = "hausrat.HausratProdukt")
 @IpsAttributes({ "produktname", "kurzbezeichnung", "vorschlagVersSummeProQm" })
-@IpsAssociations({ "HausratGrunddeckungstyp" })
+@IpsAssociations({ "HausratGrunddeckungstyp", "HausratZusatzdeckungstyp" })
 @IpsConfigures(HausratVertrag.class)
 @IpsDocumented(bundleName = "org.faktorips.schulung.hausratmodell.model-label-and-descriptions", defaultLocale = "de")
 public class HausratProdukt extends ProductComponent {
@@ -62,6 +67,14 @@ public class HausratProdukt extends ProductComponent {
      * @generated
      */
     private static final String XML_TAG_HAUSRAT_GRUNDDECKUNGSTYP = "HausratGrunddeckungstyp";
+    /**
+     * Der XML Tag Name der Assoziation hausratZusatzdeckungstypen.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    private static final String XML_TAG_HAUSRAT_ZUSATZDECKUNGSTYPEN = "HausratZusatzdeckungstyp";
     /**
      * Diese Konstante enthält den Namen der Eigenschaft produktname.
      *
@@ -168,6 +181,16 @@ public class HausratProdukt extends ProductComponent {
      * @generated
      */
     private IProductComponentLink<HausratGrunddeckungstyp> hausratGrunddeckungstyp = null;
+
+    /**
+     * Membervariable fuer die Beziehung HausratZusatzdeckungstypen.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    private Map<String, IProductComponentLink<HausratZusatzdeckungstyp>> hausratZusatzdeckungstypen = new LinkedHashMap<>(
+            0);
 
     /**
      * Erzeugt eine neue Instanz von HausratProdukt.
@@ -614,6 +637,171 @@ public class HausratProdukt extends ProductComponent {
     }
 
     /**
+     * Gibt die referenzierten HausratZusatzdeckungstypen zurueck. Gibt ein leeres
+     * Array zurueck, wenn kein Objekt referenziert wird.
+     *
+     * @throws org.faktorips.runtime.ProductCmptNotFoundException wenn einer der
+     *                                                            referenzierten
+     *                                                            Bausteine nicht
+     *                                                            gefunden wird.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAssociation(name = "HausratZusatzdeckungstyp", pluralName = "HausratZusatzdeckungstypen", kind = AssociationKind.Composition, targetClass = HausratZusatzdeckungstyp.class, min = 0, max = Integer.MAX_VALUE)
+    @IpsMatchingAssociation(source = HausratVertrag.class, name = "HausratZusatzdeckung")
+    @IpsGenerated
+    public List<? extends HausratZusatzdeckungstyp> getHausratZusatzdeckungstypen() {
+        List<HausratZusatzdeckungstyp> result = new ArrayList<>(hausratZusatzdeckungstypen.size());
+        for (IProductComponentLink<HausratZusatzdeckungstyp> hausratZusatzdeckungstyp : hausratZusatzdeckungstypen
+                .values()) {
+            if (!hausratZusatzdeckungstyp.getCardinality().isEmpty()) {
+                result.add(hausratZusatzdeckungstyp.getTarget());
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Gibt HausratZusatzdeckungstyp an dem angegebenen Index zurueck.
+     *
+     * @throws IndexOutOfBoundsException                          wenn der
+     *                                                            angegebene Index
+     *                                                            nicht im erlaubten
+     *                                                            Bereich liegt
+     *                                                            (kleiner als 0
+     *                                                            oder größer gleich
+     *                                                            Anzahl der
+     *                                                            referenzierten
+     *                                                            Bausteine).
+     * @throws org.faktorips.runtime.ProductCmptNotFoundException wenn der
+     *                                                            referenzierte
+     *                                                            Baustein nicht im
+     *                                                            Repository
+     *                                                            gefunden werden
+     *                                                            kann.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public HausratZusatzdeckungstyp getHausratZusatzdeckungstyp(int index) {
+        return ProductComponentLinks.getTarget(index, hausratZusatzdeckungstypen);
+    }
+
+    /**
+     * Fuegt den gegebenen Produktbaustein zu diesem hinzu.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAssociationAdder(association = "HausratZusatzdeckungstyp")
+    @IpsGenerated
+    public void addHausratZusatzdeckungstyp(HausratZusatzdeckungstyp target) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        this.hausratZusatzdeckungstypen.put(target.getId(),
+                new ProductComponentLink<>(this, target, "HausratZusatzdeckungstyp"));
+    }
+
+    /**
+     * Fuegt den gegebenen Produktbaustein mit der gegebenen Kardinalitaet zu diesem
+     * hinzu.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAssociationAdder(association = "HausratZusatzdeckungstyp", withCardinality = true)
+    @IpsGenerated
+    public void addHausratZusatzdeckungstyp(HausratZusatzdeckungstyp target, CardinalityRange cardinality) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        this.hausratZusatzdeckungstypen.put(target.getId(),
+                new ProductComponentLink<>(this, target, cardinality, "HausratZusatzdeckungstyp"));
+    }
+
+    /**
+     * Entfernt die Beziehung zum gegebenen Produktbaustein.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAssociationRemover(association = "HausratZusatzdeckungstyp")
+    @IpsGenerated
+    public void removeHausratZusatzdeckungstyp(HausratZusatzdeckungstyp target) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        this.hausratZusatzdeckungstypen.remove(target.getId());
+    }
+
+    /**
+     * Gibt die <code>ILink</code>s zu den referenzierten HausratZusatzdeckungstypen
+     * zurueck. Gibt eine leere <code>Collection</code> zurueck, wenn kein Objekt
+     * referenziert wird.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsAssociationLinks(association = "HausratZusatzdeckungstyp")
+    @IpsGenerated
+    public Collection<IProductComponentLink<HausratZusatzdeckungstyp>> getLinksForHausratZusatzdeckungstypen() {
+        return Collections.unmodifiableCollection(hausratZusatzdeckungstypen.values());
+    }
+
+    /**
+     * Gibt den <code>ILink</code> zu HausratZusatzdeckungstyp an dem angegebenen
+     * Index zurueck.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public IProductComponentLink<HausratZusatzdeckungstyp> getLinkForHausratZusatzdeckungstyp(
+            HausratZusatzdeckungstyp productComponent) {
+        return hausratZusatzdeckungstypen.get(productComponent.getId());
+    }
+
+    /**
+     * Gibt die Kardinalitaet fuer die Beziehung mit den Rollennamen
+     * HausratZusatzdeckung zurueck.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public CardinalityRange getCardinalityForHausratZusatzdeckung(HausratZusatzdeckungstyp productCmpt) {
+        if (productCmpt != null) {
+            return hausratZusatzdeckungstypen.containsKey(productCmpt.getId())
+                    ? hausratZusatzdeckungstypen.get(productCmpt.getId()).getCardinality()
+                    : null;
+        }
+        return null;
+    }
+
+    /**
+     * Gibt die Anzahl der HausratZusatzdeckungstypen zurueck.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public int getNumOfHausratZusatzdeckungstypen() {
+        return hausratZusatzdeckungstypen.size();
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @generated
@@ -754,6 +942,7 @@ public class HausratProdukt extends ProductComponent {
     protected void doInitReferencesFromXml(Map<String, List<Element>> elementsMap) {
         super.doInitReferencesFromXml(elementsMap);
         doInitHausratGrunddeckungstyp(elementsMap);
+        doInitHausratZusatzdeckungstyp(elementsMap);
     }
 
     /**
@@ -766,6 +955,22 @@ public class HausratProdukt extends ProductComponent {
             Element element = associationElements.get(0);
             hausratGrunddeckungstyp = new ProductComponentLink<>(this);
             hausratGrunddeckungstyp.initFromXml(element);
+        }
+    }
+
+    /**
+     * @generated
+     */
+    @IpsGenerated
+    private void doInitHausratZusatzdeckungstyp(Map<String, List<Element>> elementsMap) {
+        List<Element> associationElements = elementsMap.get(XML_TAG_HAUSRAT_ZUSATZDECKUNGSTYPEN);
+        if (associationElements != null) {
+            this.hausratZusatzdeckungstypen = new LinkedHashMap<>(associationElements.size());
+            for (Element element : associationElements) {
+                IProductComponentLink<HausratZusatzdeckungstyp> link = new ProductComponentLink<>(this);
+                link.initFromXml(element);
+                this.hausratZusatzdeckungstypen.put(link.getTargetId(), link);
+            }
         }
     }
 
@@ -804,6 +1009,9 @@ public class HausratProdukt extends ProductComponent {
         if ("HausratGrunddeckungstyp".equals(linkName)) {
             return getLinkForHausratGrunddeckungstyp((HausratGrunddeckungstyp) target);
         }
+        if ("HausratZusatzdeckungstyp".equals(linkName)) {
+            return getLinkForHausratZusatzdeckungstyp((HausratZusatzdeckungstyp) target);
+        }
         return null;
     }
 
@@ -819,6 +1027,7 @@ public class HausratProdukt extends ProductComponent {
         if (getLinkForHausratGrunddeckungstyp() != null) {
             list.add(getLinkForHausratGrunddeckungstyp());
         }
+        list.addAll(getLinksForHausratZusatzdeckungstypen());
         return list;
     }
 
