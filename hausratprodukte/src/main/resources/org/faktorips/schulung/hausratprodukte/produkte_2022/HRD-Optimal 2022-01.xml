@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ProductCmpt productCmptType="hausrat.HausratGrunddeckungstyp" runtimeId="hausrat.HRD-Optimal 2022-01" validFrom="2022-01-01" xml:space="preserve">
- <validTo isNull="true"/>
- <Description locale="de"/>
- <TableContentUsage structureUsage="TariftabelleHausrat" templateValueStatus="defined">
-  <TableContentName>produkte_2022.Tariftabelle-Optimal</TableContentName>
- </TableContentUsage>
-</ProductCmpt>
