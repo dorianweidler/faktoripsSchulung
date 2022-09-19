@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.faktorips.runtime.ClassloaderRuntimeRepository;
 import org.faktorips.runtime.IRuntimeRepository;
+import org.faktorips.runtime.formula.groovy.GroovyFormulaEvaluatorFactory;
 import org.faktorips.schulung.hausratmodell.Risikoklasse;
 import org.faktorips.values.Money;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,6 +21,7 @@ public class HausratProduktTest {
         // Repository erzeugen
         repository = ClassloaderRuntimeRepository
                 .create("org/faktorips/schulung/hausratprodukte/internal/faktorips-repository-toc.xml");
+        ((ClassloaderRuntimeRepository) repository).setFormulaEvaluatorFactory(new GroovyFormulaEvaluatorFactory());
         // Referenz auf das Kompaktprodukt aus dem Repository holen
         hrKompakt = (HausratProdukt) repository.getProductComponent("hausrat.HR-Kompakt 2022-01");
     }
@@ -195,5 +197,15 @@ public class HausratProduktTest {
                 .getProductComponent("hausrat.Überspannung 2022-01");
         HausratZusatzdeckung überspannung = hausratVertrag.newHausratZusatzdeckung(überspannungTyp);
         assertThat(überspannung.getVersSumme(), is(Money.euro(30_000)));
+    }
+
+    @Test
+    void testBerechneJahresbasisbeitrag_Zusatzdeckung_Fahrraddiebstahl() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setVersSumme(Money.euro(600_000));
+        HausratZusatzdeckungstyp fahrraddiebstahlTyp = (HausratZusatzdeckungstyp) repository
+                .getProductComponent("hausrat.Fahrraddiebstahl 2022-01");
+        HausratZusatzdeckung fahrraddiebstahl = hausratVertrag.newHausratZusatzdeckung(fahrraddiebstahlTyp);
+        assertThat(fahrraddiebstahl.getJahresbasisbeitrag(), is(Money.euro(500)));
     }
 }
