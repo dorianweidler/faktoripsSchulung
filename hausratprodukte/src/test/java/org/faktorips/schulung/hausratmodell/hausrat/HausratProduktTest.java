@@ -1,10 +1,18 @@
 package org.faktorips.schulung.hausratmodell.hausrat;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.faktorips.runtime.ClassloaderRuntimeRepository;
 import org.faktorips.runtime.IRuntimeRepository;
+import org.faktorips.runtime.Message;
+import org.faktorips.runtime.MessageList;
+import org.faktorips.runtime.ObjectProperty;
+import org.faktorips.runtime.Severity;
+import org.faktorips.runtime.ValidationContext;
 import org.faktorips.runtime.formula.groovy.GroovyFormulaEvaluatorFactory;
 import org.faktorips.schulung.hausratmodell.Risikoklasse;
 import org.faktorips.values.Money;
@@ -208,4 +216,98 @@ public class HausratProduktTest {
         HausratZusatzdeckung fahrraddiebstahl = hausratVertrag.newHausratZusatzdeckung(fahrraddiebstahlTyp);
         assertThat(fahrraddiebstahl.getJahresbasisbeitrag(), is(Money.euro(500)));
     }
+
+    @Test
+    void testPruefeWohnflaeche_OK() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(75);
+        hausratVertrag.setVersSumme(Money.euro(100_000));
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(true));
+    }
+
+    @Test
+    void testPruefeWohnflaeche_ZuHoch() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(250);
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(false));
+        assertThat(validationMessages.getSeverity(), is(Severity.ERROR));
+        Message message = validationMessages.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE);
+        assertThat(message, is(notNullValue()));
+        assertThat(message.getText(), containsString("0-100"));
+        assertThat(message.getText(), containsString("250"));
+        assertThat(message.getInvalidObjectProperties(),
+                hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_WOHNFLAECHE)));
+    }
+
+    @Test
+    void testPruefeWohnflaeche_NichtGesetzt() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(false));
+        assertThat(validationMessages.getSeverity(), is(Severity.ERROR));
+        Message message = validationMessages.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE);
+        assertThat(message, is(notNullValue()));
+        assertThat(message.getText(), containsString("0-100"));
+        assertThat(message.getText(), containsString("null"));
+        assertThat(message.getInvalidObjectProperties(),
+                hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_WOHNFLAECHE)));
+    }
+
+    @Test
+    void testPruefePLZ_OK() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(75);
+        hausratVertrag.setVersSumme(Money.euro(100_000));
+        hausratVertrag.setPlz("50678");
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(true));
+    }
+
+    @Test
+    void testPruefePLZ_ZuKurz() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(75);
+        hausratVertrag.setPlz("8000");
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(false));
+        assertThat(validationMessages.getSeverity(), is(Severity.ERROR));
+        Message message = validationMessages.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_PLZ);
+        assertThat(message, is(notNullValue()));
+        assertThat(message.getText(), containsString("8000"));
+        assertThat(message.getInvalidObjectProperties(),
+                hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_PLZ)));
+    }
+
+    @Test
+    void testPruefePLZ_ZuLang() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(75);
+        hausratVertrag.setPlz("12345678");
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(false));
+        assertThat(validationMessages.getSeverity(), is(Severity.ERROR));
+        Message message = validationMessages.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_PLZ);
+        assertThat(message, is(notNullValue()));
+        assertThat(message.getText(), containsString("12345678"));
+        assertThat(message.getInvalidObjectProperties(),
+                hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_PLZ)));
+    }
+
+    @Test
+    void testPruefePLZ_KeineZiffer() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(75);
+        hausratVertrag.setPlz("ABCDE");
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(false));
+        assertThat(validationMessages.getSeverity(), is(Severity.ERROR));
+        Message message = validationMessages.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_PLZ);
+        assertThat(message, is(notNullValue()));
+        assertThat(message.getText(), containsString("ABCDE"));
+        assertThat(message.getInvalidObjectProperties(),
+                hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_PLZ)));
+    }
+
 }
