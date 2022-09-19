@@ -166,4 +166,34 @@ public class HausratProduktTest {
     void testErweiterbareAufzählung() {
         repository.getEnumValues(Risikoklasse.class).forEach(System.out::println);
     }
+
+    @Test
+    void testGetVerSumme_Zusatzdeckung_Fahrraddiebstahl() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setVersSumme(Money.euro(60_000));
+        HausratZusatzdeckungstyp fahrraddiebstahlTyp = (HausratZusatzdeckungstyp) repository
+                .getProductComponent("hausrat.Fahrraddiebstahl 2022-01");
+        HausratZusatzdeckung fahrraddiebstahl = hausratVertrag.newHausratZusatzdeckung(fahrraddiebstahlTyp);
+        assertThat(fahrraddiebstahl.getVersSumme(), is(Money.euro(600)));
+    }
+
+    @Test
+    void testGetVerSumme_Zusatzdeckung_Fahrraddiebstahl_Maximiert() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setVersSumme(Money.euro(600_000));
+        HausratZusatzdeckungstyp fahrraddiebstahlTyp = (HausratZusatzdeckungstyp) repository
+                .getProductComponent("hausrat.Fahrraddiebstahl 2022-01");
+        HausratZusatzdeckung fahrraddiebstahl = hausratVertrag.newHausratZusatzdeckung(fahrraddiebstahlTyp);
+        assertThat(fahrraddiebstahl.getVersSumme(), is(Money.euro(5_000)));
+    }
+
+    @Test
+    void testGetVerSumme_Zusatzdeckung_Überspannung_NichtMaximiert() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setVersSumme(Money.euro(600_000));
+        HausratZusatzdeckungstyp überspannungTyp = (HausratZusatzdeckungstyp) repository
+                .getProductComponent("hausrat.Überspannung 2022-01");
+        HausratZusatzdeckung überspannung = hausratVertrag.newHausratZusatzdeckung(überspannungTyp);
+        assertThat(überspannung.getVersSumme(), is(Money.euro(30_000)));
+    }
 }

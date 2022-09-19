@@ -12,6 +12,7 @@ import org.faktorips.runtime.IVisitorSupport;
 import org.faktorips.runtime.IDependantObject;
 import org.faktorips.runtime.IConfigurableModelObject;
 import org.faktorips.valueset.ValueSet;
+import org.faktorips.values.Decimal;
 import org.faktorips.values.Money;
 import org.faktorips.valueset.UnrestrictedValueSet;
 import org.faktorips.runtime.internal.ProductConfiguration;
@@ -24,6 +25,8 @@ import org.faktorips.runtime.model.type.AssociationKind;
 import org.faktorips.runtime.model.annotation.IpsInverseAssociation;
 import org.faktorips.runtime.model.annotation.IpsAssociationAdder;
 import org.faktorips.runtime.IProductComponent;
+
+import java.math.RoundingMode;
 import java.util.Calendar;
 import org.faktorips.runtime.IRuntimeRepository;
 import org.faktorips.runtime.IObjectReferenceStore;
@@ -145,7 +148,21 @@ public class HausratZusatzdeckung extends AbstractModelObject
     @IpsGenerated
     public Money getVersSumme() {
         // begin-user-code
-        return Money.NULL;
+        HausratZusatzdeckungstyp zusatzdeckungstyp = getHausratZusatzdeckungstyp();
+        if (zusatzdeckungstyp == null) {
+            return Money.NULL;
+        }
+        Decimal faktor = zusatzdeckungstyp.getVersSummenFaktor();
+        Money vsVertrag = getHausratVertrag().getVersSumme();
+        if (vsVertrag.isNull()) {
+            return Money.NULL;
+        }
+        Money vs = vsVertrag.multiply(faktor, RoundingMode.HALF_UP);
+        Money maxVs = zusatzdeckungstyp.getMaximaleVersSumme();
+        if (vs.greaterThan(maxVs)) {
+            return maxVs;
+        }
+        return vs;
         // end-user-code
     }
 
