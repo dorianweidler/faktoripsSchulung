@@ -6,7 +6,6 @@ import static org.faktorips.testsupport.IpsMatchers.containsText;
 import static org.faktorips.testsupport.IpsMatchers.hasErrorMessage;
 import static org.faktorips.testsupport.IpsMatchers.hasInvalidObject;
 import static org.faktorips.testsupport.IpsMatchers.hasMessageWithSeverity;
-import static org.faktorips.testsupport.IpsMatchers.hasProperty;
 import static org.faktorips.testsupport.IpsMatchers.hasSeverity;
 import static org.faktorips.testsupport.IpsMatchers.isEmpty;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -333,7 +332,7 @@ public class HausratProduktTest {
         assertThat(message.getText(), containsString("12345678"));
         assertThat(message.getInvalidObjectProperties(),
                 hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_PLZ)));
-        // IPS-Matcher        
+        // IPS-Matcher
         assertThat(validationMessages, containsErrorMessage());
         assertThat(validationMessages, hasMessageWithSeverity(Severity.ERROR));
         assertThat(validationMessages, hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ));
@@ -368,4 +367,31 @@ public class HausratProduktTest {
         assertThat(message, containsText("5"));
     }
 
+    @Test
+    void testGenerischeValidierung_OK() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(75);
+        hausratVertrag.setPlz("50678");
+        hausratVertrag.setVersSumme(Money.euro(100_000));
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(true));
+    }
+
+    @Test
+    void testGenerischeValidierung_VersSummeZuHoch() {
+        HausratVertrag hausratVertrag = hrKompakt.createHausratVertrag();
+        hausratVertrag.setWohnflaeche(75);
+        hausratVertrag.setPlz("50678");
+        hausratVertrag.setVersSumme(Money.euro(100_000_000));
+        MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
+        assertThat(validationMessages.isEmpty(), is(false));
+        assertThat(validationMessages.getSeverity(), is(Severity.ERROR));
+        Message message = validationMessages.getFirstMessage(Severity.ERROR);
+        assertThat(message, is(notNullValue()));
+        assertThat(message.getText(), containsString("Versicherungssumme"));
+        assertThat(message.getText(), containsString("10000.00 EUR"));
+        assertThat(message.getText(), containsString("2000000.00 EUR"));
+        assertThat(message.getInvalidObjectProperties(),
+                hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_VERSSUMME)));
+    }
 }
