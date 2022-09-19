@@ -86,4 +86,23 @@ Wohnfläche bestimmt.</Description>
    </Range>
   </ValueSet>
  </Attribute>
+ <ValidationRuleDef activatedByDefault="true" changingOverTime="false" checkValueAgainstValueSetRule="true" messageCode="WOHNFLAECHE_UNGUELTIG" messageSeverity="error" modifier="published" name="pruefeWohnflaeche" since="0.0.1">
+  <ValidatedAttribute name="wohnflaeche"/>
+  <MessageText>
+   <InternationalString>
+    <LocalizedString locale="de" text="Die Wohnfläche von {fläche} m² liegt nicht im erlaubten Bereich von {bereich} m²."/>
+   </InternationalString>
+  </MessageText>
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </ValidationRuleDef>
+ <ValidationRuleDef activatedByDefault="true" changingOverTime="false" messageCode="error.HausratVertrag.pruefePlz" messageSeverity="error" modifier="published" name="pruefePlz" since="0.0.1" validatedAttrSpecifiedInSrc="true">
+  <MessageText>
+   <InternationalString>
+    <LocalizedString locale="de" text="Die angegebene Postleitzahl {plz} ist nicht 5 Zahlen lang sondern nur {stellen} Zahlen."/>
+   </InternationalString>
+  </MessageText>
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </ValidationRuleDef>
 </PolicyCmptType>

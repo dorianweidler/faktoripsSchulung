@@ -4,6 +4,7 @@ import org.faktorips.runtime.model.annotation.IpsPolicyCmptType;
 import org.faktorips.runtime.model.annotation.IpsAttributes;
 import org.faktorips.runtime.model.annotation.IpsAssociations;
 import org.faktorips.runtime.model.annotation.IpsConfiguredBy;
+import org.faktorips.runtime.model.annotation.IpsValidationRules;
 import org.faktorips.runtime.model.annotation.IpsDocumented;
 import org.faktorips.runtime.internal.AbstractModelObject;
 import org.faktorips.runtime.IDeltaSupport;
@@ -43,6 +44,8 @@ import org.faktorips.runtime.IModelObject;
 import org.faktorips.runtime.IDeltaComputationOptions;
 import org.faktorips.runtime.internal.ModelObjectDelta;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import org.faktorips.runtime.IRuntimeRepository;
 import org.faktorips.runtime.IObjectReferenceStore;
 import org.faktorips.runtime.internal.XmlCallback;
@@ -51,6 +54,14 @@ import java.util.HashMap;
 import org.faktorips.runtime.IModelObjectVisitor;
 import org.faktorips.runtime.MessageList;
 import org.faktorips.runtime.IValidationContext;
+import org.faktorips.runtime.Severity;
+import org.faktorips.runtime.model.annotation.IpsValidationRule;
+import org.faktorips.runtime.Message;
+import org.faktorips.runtime.ObjectProperty;
+import java.util.Arrays;
+import org.faktorips.runtime.MsgReplacementParameter;
+import org.faktorips.runtime.util.MessagesHelper;
+import java.util.Locale;
 import org.faktorips.runtime.annotation.IpsGenerated;
 
 /**
@@ -64,6 +75,7 @@ import org.faktorips.runtime.annotation.IpsGenerated;
 @IpsAttributes({ "zahlweise", "plz", "tarifzone", "wohnflaeche", "vorschlagVersSumme", "versSumme" })
 @IpsAssociations({ "HausratGrunddeckung", "HausratZusatzdeckung" })
 @IpsConfiguredBy(HausratProdukt.class)
+@IpsValidationRules({ "pruefeWohnflaeche", "pruefePlz" })
 @IpsDocumented(bundleName = "org.faktorips.schulung.hausratmodell.model-label-and-descriptions", defaultLocale = "de")
 public class HausratVertrag extends AbstractModelObject
         implements IDeltaSupport, ICopySupport, IVisitorSupport, IConfigurableModelObject {
@@ -102,6 +114,22 @@ public class HausratVertrag extends AbstractModelObject
      * @generated
      */
     public static final String ASSOCIATION_HAUSRAT_ZUSATZDECKUNGEN = "hausratZusatzdeckungen";
+    /**
+     * Konstante fuer den Fehlercode der Regel pruefeWohnflaeche.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    public static final String MSG_CODE_PRUEFE_WOHNFLAECHE = "WOHNFLAECHE_UNGUELTIG";
+    /**
+     * Konstante fuer den Fehlercode der Regel pruefePlz.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    public static final String MSG_CODE_PRUEFE_PLZ = "error.HausratVertrag.pruefePlz";
     /**
      * Diese Konstante enthaelt den Namen der Eigenschaft zahlweise.
      *
@@ -1198,6 +1226,12 @@ public class HausratVertrag extends AbstractModelObject
         if (!super.validateSelf(ml, context)) {
             return STOP_VALIDATION;
         }
+        if (!pruefeWohnflaeche(ml, context)) {
+            return STOP_VALIDATION;
+        }
+        if (!pruefePlz(ml, context)) {
+            return STOP_VALIDATION;
+        }
         return CONTINUE_VALIDATION;
     }
 
@@ -1233,4 +1267,101 @@ public class HausratVertrag extends AbstractModelObject
         // end-user-code
     }
 
+    /**
+     *
+     * Fuehrt die Regel pruefeWohnflaeche aus und fuegt eine Message an die
+     * uebergebene MessageList an, wenn die Regel einen nicht validen Zustand
+     * feststellt.
+     *
+     * @param ml      Liste, der Fehler bei der Validierung in Form von Messages
+     *                hinzugefügt werden
+     * @param context der Kontext der Validierung
+     * @return <code>true</code>, wenn die Validierung nach Ausführung dieser Regel
+     *         fortgesetzt werden soll, <code>false</code> wenn sie abgebrochen
+     *         werden soll.
+     *
+     * @since 0.0.1
+     *
+     * @restrainedmodifiable
+     */
+    @IpsValidationRule(name = "pruefeWohnflaeche", msgCode = MSG_CODE_PRUEFE_WOHNFLAECHE, severity = Severity.ERROR)
+    @IpsGenerated
+    protected boolean pruefeWohnflaeche(MessageList ml, IValidationContext context) {
+        if (!getAllowedValuesForWohnflaeche().contains(getWohnflaeche())) {
+            // begin-user-code
+            ml.add(createMessageForRulePruefeWohnflaeche(context, getWohnflaeche(), getAllowedValuesForWohnflaeche()));
+            // end-user-code
+        }
+        return CONTINUE_VALIDATION;
+    }
+
+    /**
+     * Erzeugt die Message, die in das Ergebnis der Validierung aufgenommen wird,
+     * wenn die Regel pruefeWohnflaeche einen nicht validen Zustand melden soll.
+     *
+     * @since 0.0.1
+     *
+     * @generated
+     */
+    @IpsGenerated
+    protected Message createMessageForRulePruefeWohnflaeche(IValidationContext context, Object fläche, Object bereich) {
+        List<ObjectProperty> invalidObjectProperties = Arrays.asList(new ObjectProperty(this, PROPERTY_WOHNFLAECHE));
+        MsgReplacementParameter[] replacementParameters = new MsgReplacementParameter[] {
+                new MsgReplacementParameter("fläche", fläche), new MsgReplacementParameter("bereich", bereich) };
+        MessagesHelper messageHelper = new MessagesHelper("org.faktorips.schulung.hausratmodell.message-validation",
+                getClass().getClassLoader(), Locale.GERMAN);
+        String msgText = messageHelper.getMessage("hausrat.HausratVertrag-pruefeWohnflaeche", context.getLocale(),
+                fläche, bereich);
+
+        Message.Builder builder = new Message.Builder(msgText, Severity.ERROR).code(MSG_CODE_PRUEFE_WOHNFLAECHE)
+                .invalidObjects(invalidObjectProperties).replacements(replacementParameters);
+        return builder.create();
+    }
+
+    /**
+     * Fuehrt die Regel pruefePlz aus und fuegt eine Message an die uebergebene
+     * MessageList an, wenn die Regel einen nicht validen Zustand feststellt.
+     * 
+     * @param ml      Liste, der Fehler bei der Validierung in Form von Messages
+     *                hinzugefügt werden
+     * @param context der Kontext der Validierung
+     * @return <code>true</code>, wenn die Validierung nach Ausführung dieser Regel
+     *         fortgesetzt werden soll, <code>false</code> wenn sie abgebrochen
+     *         werden soll.
+     * @since 0.0.1
+     * @restrainedmodifiable
+     */
+    @IpsValidationRule(name = "pruefePlz", msgCode = MSG_CODE_PRUEFE_PLZ, severity = Severity.ERROR)
+    @IpsGenerated
+    protected boolean pruefePlz(MessageList ml, IValidationContext context) {
+        // begin-user-code
+        if (plz != null && !Pattern.compile("\\d{5}").matcher(plz).matches()) {
+            ml.add(createMessageForRulePruefePlz(context, plz, plz.length(),
+                    new ObjectProperty[] { new ObjectProperty(this, PROPERTY_PLZ) }));
+        }
+        return CONTINUE_VALIDATION;
+        // end-user-code
+    }
+
+    /**
+     * Erzeugt die Message, die in das Ergebnis der Validierung aufgenommen wird,
+     * wenn die Regel pruefePlz einen nicht validen Zustand melden soll.
+     * 
+     * @since 0.0.1
+     * @generated
+     */
+    @IpsGenerated
+    protected Message createMessageForRulePruefePlz(IValidationContext context, Object plz, Object stellen,
+            ObjectProperty[] invalidObjectProperties) {
+        MsgReplacementParameter[] replacementParameters = new MsgReplacementParameter[] {
+                new MsgReplacementParameter("plz", plz), new MsgReplacementParameter("stellen", stellen) };
+        MessagesHelper messageHelper = new MessagesHelper("org.faktorips.schulung.hausratmodell.message-validation",
+                getClass().getClassLoader(), Locale.GERMAN);
+        String msgText = messageHelper.getMessage("hausrat.HausratVertrag-pruefePlz", context.getLocale(), plz,
+                stellen);
+
+        Message.Builder builder = new Message.Builder(msgText, Severity.ERROR).code(MSG_CODE_PRUEFE_PLZ)
+                .invalidObjects(invalidObjectProperties).replacements(replacementParameters);
+        return builder.create();
+    }
 }
