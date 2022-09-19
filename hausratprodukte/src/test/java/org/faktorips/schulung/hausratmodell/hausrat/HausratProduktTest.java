@@ -1,5 +1,14 @@
 package org.faktorips.schulung.hausratmodell.hausrat;
 
+import static org.faktorips.testsupport.IpsMatchers.containsErrorMessage;
+import static org.faktorips.testsupport.IpsMatchers.containsNoErrorMessage;
+import static org.faktorips.testsupport.IpsMatchers.containsText;
+import static org.faktorips.testsupport.IpsMatchers.hasErrorMessage;
+import static org.faktorips.testsupport.IpsMatchers.hasInvalidObject;
+import static org.faktorips.testsupport.IpsMatchers.hasMessageWithSeverity;
+import static org.faktorips.testsupport.IpsMatchers.hasProperty;
+import static org.faktorips.testsupport.IpsMatchers.hasSeverity;
+import static org.faktorips.testsupport.IpsMatchers.isEmpty;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -224,6 +233,8 @@ public class HausratProduktTest {
         hausratVertrag.setVersSumme(Money.euro(100_000));
         MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
         assertThat(validationMessages.isEmpty(), is(true));
+        // IPS-Matcher
+        assertThat(validationMessages, is(isEmpty()));
     }
 
     @Test
@@ -239,6 +250,15 @@ public class HausratProduktTest {
         assertThat(message.getText(), containsString("250"));
         assertThat(message.getInvalidObjectProperties(),
                 hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_WOHNFLAECHE)));
+        // IPS-Matcher
+        assertThat(validationMessages, containsErrorMessage());
+        assertThat(validationMessages, hasMessageWithSeverity(Severity.ERROR));
+        assertThat(validationMessages, hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE));
+
+        assertThat(message, hasInvalidObject(hausratVertrag, HausratVertrag.PROPERTY_WOHNFLAECHE));
+        assertThat(message, hasSeverity(Severity.ERROR));
+        assertThat(message, containsText("0-100"));
+        assertThat(message, containsText("250"));
     }
 
     @Test
@@ -253,6 +273,15 @@ public class HausratProduktTest {
         assertThat(message.getText(), containsString("null"));
         assertThat(message.getInvalidObjectProperties(),
                 hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_WOHNFLAECHE)));
+        // IPS-Matcher
+        assertThat(validationMessages, containsErrorMessage());
+        assertThat(validationMessages, hasMessageWithSeverity(Severity.ERROR));
+        assertThat(validationMessages, hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE));
+
+        assertThat(message, hasInvalidObject(hausratVertrag, HausratVertrag.PROPERTY_WOHNFLAECHE));
+        assertThat(message, hasSeverity(Severity.ERROR));
+        assertThat(message, containsText("0-100"));
+        assertThat(message, containsText("null"));
     }
 
     @Test
@@ -263,6 +292,8 @@ public class HausratProduktTest {
         hausratVertrag.setPlz("50678");
         MessageList validationMessages = hausratVertrag.validate(new ValidationContext());
         assertThat(validationMessages.isEmpty(), is(true));
+        // IPS-Matcher
+        assertThat(validationMessages, containsNoErrorMessage());
     }
 
     @Test
@@ -278,6 +309,15 @@ public class HausratProduktTest {
         assertThat(message.getText(), containsString("8000"));
         assertThat(message.getInvalidObjectProperties(),
                 hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_PLZ)));
+        // IPS-Matcher
+        assertThat(validationMessages, containsErrorMessage());
+        assertThat(validationMessages, hasMessageWithSeverity(Severity.ERROR));
+        assertThat(validationMessages, hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ));
+
+        assertThat(message, hasInvalidObject(hausratVertrag, HausratVertrag.PROPERTY_PLZ));
+        assertThat(message, hasSeverity(Severity.ERROR));
+        assertThat(message, containsText("8000"));
+        assertThat(message, containsText("4"));
     }
 
     @Test
@@ -293,6 +333,15 @@ public class HausratProduktTest {
         assertThat(message.getText(), containsString("12345678"));
         assertThat(message.getInvalidObjectProperties(),
                 hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_PLZ)));
+        // IPS-Matcher        
+        assertThat(validationMessages, containsErrorMessage());
+        assertThat(validationMessages, hasMessageWithSeverity(Severity.ERROR));
+        assertThat(validationMessages, hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ));
+
+        assertThat(message, hasInvalidObject(hausratVertrag, HausratVertrag.PROPERTY_PLZ));
+        assertThat(message, hasSeverity(Severity.ERROR));
+        assertThat(message, containsText("12345678"));
+        assertThat(message, containsText("8"));
     }
 
     @Test
@@ -308,6 +357,15 @@ public class HausratProduktTest {
         assertThat(message.getText(), containsString("ABCDE"));
         assertThat(message.getInvalidObjectProperties(),
                 hasItems(new ObjectProperty(hausratVertrag, HausratVertrag.PROPERTY_PLZ)));
+        // IPS-Matcher
+        assertThat(validationMessages, containsErrorMessage());
+        assertThat(validationMessages, hasMessageWithSeverity(Severity.ERROR));
+        assertThat(validationMessages, hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ));
+
+        assertThat(message, hasInvalidObject(hausratVertrag, HausratVertrag.PROPERTY_PLZ));
+        assertThat(message, hasSeverity(Severity.ERROR));
+        assertThat(message, containsText("ABCDE"));
+        assertThat(message, containsText("5"));
     }
 
 }
