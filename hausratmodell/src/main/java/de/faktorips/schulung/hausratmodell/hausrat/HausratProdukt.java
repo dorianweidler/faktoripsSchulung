@@ -288,8 +288,9 @@ public class HausratProdukt extends ProductComponent {
 
     /**
      * Returns the value of vorschlagVersSummeProQm.
-     * 
+     *
      * @since 1.0
+     *
      * @generated
      */
     @IpsAttribute(name = "vorschlagVersSummeProQm", kind = AttributeKind.CONSTANT, valueSetKind = ValueSetKind.AllValues)
@@ -300,8 +301,9 @@ public class HausratProdukt extends ProductComponent {
 
     /**
      * Sets the value of attribute vorschlagVersSummeProQm.
-     * 
+     *
      * @since 1.0
+     *
      * @generated
      */
     @IpsAttributeSetter("vorschlagVersSummeProQm")
@@ -315,8 +317,9 @@ public class HausratProdukt extends ProductComponent {
 
     /**
      * Sets the value of attribute vorschlagVersSummeProQm.
-     * 
+     *
      * @since 1.0
+     *
      * @generated
      */
     @IpsGenerated
@@ -815,5 +818,5 @@ public class HausratProdukt extends ProductComponent {
         }
         return list;
     }
-    
+
 }

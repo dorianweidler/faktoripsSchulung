@@ -405,7 +405,12 @@ public class HausratVertrag extends AbstractModelObject
     @IpsGenerated
     public String getTarifzone() {
         // begin-user-code
-        return "I";
+        Tarifzonentabelle tabelle = getProductComponent().getRepository().getTable(Tarifzonentabelle.class);
+        final TarifzonentabelleRow tarifzone = tabelle.findRow(getPlz());
+        if (tarifzone == null) {
+            return "I";
+        }
+        return tarifzone.getTarifzone();
         // end-user-code
     }
 
@@ -480,7 +485,7 @@ public class HausratVertrag extends AbstractModelObject
     public Money getVorschlagVersSumme() {
         // begin-user-code
         final HausratProdukt hausratProdukt = getHausratProdukt();
-        if(hausratProdukt == null) {
+        if (hausratProdukt == null) {
             return Money.NULL;
         }
         return hausratProdukt.getVorschlagVersSummeProQm().multiply(getWohnflaeche());

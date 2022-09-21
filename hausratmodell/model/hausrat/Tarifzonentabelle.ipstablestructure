@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TableStructure xmlns="http://www.faktorzehn.org" since="1.0" tableStructureType="singleContent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/TableStructure.xsd" xml:space="preserve">
+ <Label locale="de"/>
+ <Description locale="de"/>
+ <Column datatype="String" name="plzVon" since="1.0">
+  <Label locale="de"/>
+  <Description locale="de">Beginn PLZ Bereich</Description>
+ </Column>
+ <Column datatype="String" name="plzBis" since="1.0">
+  <Label locale="de"/>
+  <Description locale="de">Ende PLZ Bereich</Description>
+ </Column>
+ <Column datatype="String" name="Tarifzone" since="1.0">
+  <Label locale="de"/>
+  <Description locale="de">Tarifzone des PLZ Bereichs</Description>
+ </Column>
+ <Range columnRangeType="twoColumn" fromColumn="plzVon" parameterName="plzBereich" since="1.0" toColumn="plzBis">
+  <Description locale="de"/>
+ </Range>
+ <Index since="1.0" uniqueKey="true">
+  <Item name="plzVon-plzBis"/>
+  <Description locale="de"/>
+ </Index>
+</TableStructure>
