@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PolicyCmptType xmlns="http://www.faktorzehn.org" configurableByProductCmptType="true" productCmptType="hausrat.HausratProdukt" since="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/PolicyCmptType.xsd" xml:space="preserve">
+ <Label locale="de"/>
+ <Description locale="de"/>
+ <Association associationType="comp" configurable="true" inverseAssociation="HausratVertrag" maxCardinality="1" minCardinality="1" modifier="published" since="1.0" target="hausrat.HausratGrunddeckung" targetRoleSingular="HausratGrunddeckung">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Association>
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="Integer" modifier="published" name="zahlweise" since="1.0" valueSetConfiguredByProduct="true">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Die Zahlweise des Vertrages.</Description>
+  <ValueSet abstract="false">
+   <Enum>
+    <Value>
+     <Data>1</Data>
+    </Value>
+    <Value>
+     <Data>2</Data>
+    </Value>
+    <Value>
+     <Data>4</Data>
+    </Value>
+    <Value>
+     <Data>12</Data>
+    </Value>
+   </Enum>
+  </ValueSet>
+ </Attribute>
+ <Attribute attributeType="changeable" changingOverTime="true" datatype="String" modifier="published" name="plz" since="1.0">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Postleitzahl des versicherten Hausrats. Maximal 5 Zeichen.</Description>
+  <ValueSet abstract="false">
+   <StringLength containsNull="false">
+    <MaximumLength>5</MaximumLength>
+   </StringLength>
+  </ValueSet>
+ </Attribute>
+ <Attribute attributeType="derived" changingOverTime="true" datatype="String" modifier="published" name="tarifzone" since="1.0">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Die Tarifzone ergibt sich aus der Postleitzahl und ist maßgeblich &#13;
+für den zu zahlenden Beitrag. </Description>
+  <ValueSet abstract="false">
+   <Derived/>
+  </ValueSet>
+ </Attribute>
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="Integer" modifier="published" name="wohnflaeche" since="1.0" valueSetConfiguredByProduct="true">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Die Wohnfläche des versicherten Hausrats in Quadratmetern.</Description>
+  <ValueSet abstract="false">
+   <Range containsNull="false">
+    <LowerBound>0</LowerBound>
+    <UpperBound isNull="true"/>
+    <Step isNull="true"/>
+   </Range>
+  </ValueSet>
+ </Attribute>
+ <Attribute attributeType="derived" changingOverTime="true" datatype="Money" modifier="published" name="vorschlagVersSumme" since="1.0">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Vorschlag für die Versicherungssumme. Wird auf Basis der Wohnfläche bestimmt.</Description>
+  <ValueSet abstract="false">
+   <AllValues containsNull="true"/>
+  </ValueSet>
+ </Attribute>
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="Money" modifier="published" name="versSumme" since="1.0" valueSetConfiguredByProduct="true">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Die Versicherungssumme.</Description>
+  <ValueSet abstract="false">
+   <Range containsNull="false">
+    <LowerBound>0.00 EUR</LowerBound>
+    <UpperBound isNull="true"/>
+    <Step isNull="true"/>
+   </Range>
+  </ValueSet>
+ </Attribute>
+</PolicyCmptType>

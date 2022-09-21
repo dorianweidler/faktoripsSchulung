@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<FaktorIps-TableOfContents productDataVersion="1.0" xmlversion="3.0">
+ <ProductComponent implementationClass="de.faktorips.schulung.hausratmodell.hausrat.HausratProdukt" ipsObjectId="hausrat.HR Optimal 2022-01" ipsObjectQualifiedName="produkte_2022.HR Optimal 2022-01" kindId="hausrat.HR Optimal" versionId="2022-01" xmlResource="de/faktorips/schulung/hausratprodukte/produkte_2022/HR Optimal 2022-01.xml"/>
+ <ProductComponent implementationClass="de.faktorips.schulung.hausratmodell.hausrat.HausratProdukt" ipsObjectId="hausrat.HR-Kompakt 2022-01" ipsObjectQualifiedName="produkte_2022.HR-Kompakt 2022-01" kindId="hausrat.HR-Kompakt" versionId="2022-01" xmlResource="de/faktorips/schulung/hausratprodukte/produkte_2022/HR-Kompakt 2022-01.xml"/>
+ <ProductComponent implementationClass="de.faktorips.schulung.hausratmodell.hausrat.HausratGrunddeckungstyp" ipsObjectId="hausrat.HRD-Kompakt 2022-01" ipsObjectQualifiedName="produkte_2022.HRD-Kompakt 2022-01" kindId="hausrat.HRD-Kompakt" versionId="2022-01" xmlResource="de/faktorips/schulung/hausratprodukte/produkte_2022/HRD-Kompakt 2022-01.xml"/>
+ <ProductComponent implementationClass="de.faktorips.schulung.hausratmodell.hausrat.HausratGrunddeckungstyp" ipsObjectId="hausrat.HRD-Optimal 2022-01" ipsObjectQualifiedName="produkte_2022.HRD-Optimal 2022-01" kindId="hausrat.HRD-Optimal" versionId="2022-01" xmlResource="de/faktorips/schulung/hausratprodukte/produkte_2022/HRD-Optimal 2022-01.xml"/>
+</FaktorIps-TableOfContents>

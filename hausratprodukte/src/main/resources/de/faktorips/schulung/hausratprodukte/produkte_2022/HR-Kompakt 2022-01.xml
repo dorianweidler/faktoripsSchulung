@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProductCmpt productCmptType="hausrat.HausratProdukt" runtimeId="hausrat.HR-Kompakt 2022-01" validFrom="2022-01-01" xml:space="preserve">
+ <validTo isNull="true"/>
+ <Description locale="de"/>
+ <AttributeValue attribute="kurzbezeichnung" templateValueStatus="defined">
+  <Value isNull="false" valueType="SingleValue">HR-Kompakt</Value>
+ </AttributeValue>
+ <AttributeValue attribute="produktname" templateValueStatus="defined">
+  <Value isNull="false" valueType="SingleValue">Hausrat Kompakt</Value>
+ </AttributeValue>
+ <AttributeValue attribute="vorschlagVersSummeProQm" templateValueStatus="defined">
+  <Value isNull="false" valueType="SingleValue">600.00 EUR</Value>
+ </AttributeValue>
+ <ConfiguredValueSet attribute="versSumme" templateValueStatus="defined">
+  <ValueSet abstract="false">
+   <Range containsNull="false">
+    <LowerBound>10000.00 EUR</LowerBound>
+    <UpperBound>2000000.00 EUR</UpperBound>
+    <Step isNull="true"/>
+   </Range>
+  </ValueSet>
+ </ConfiguredValueSet>
+ <ConfiguredDefault attribute="versSumme" isNull="true" templateValueStatus="defined"/>
+ <ConfiguredValueSet attribute="wohnflaeche" templateValueStatus="defined">
+  <ValueSet abstract="false">
+   <Range containsNull="false">
+    <LowerBound>0</LowerBound>
+    <UpperBound>100</UpperBound>
+    <Step isNull="true"/>
+   </Range>
+  </ValueSet>
+ </ConfiguredValueSet>
+ <ConfiguredDefault attribute="wohnflaeche" isNull="true" templateValueStatus="defined"/>
+ <ConfiguredValueSet attribute="zahlweise" templateValueStatus="defined">
+  <ValueSet abstract="false">
+   <Enum>
+    <Value>
+     <Data>1</Data>
+    </Value>
+    <Value>
+     <Data>12</Data>
+    </Value>
+   </Enum>
+  </ValueSet>
+ </ConfiguredValueSet>
+ <ConfiguredDefault attribute="zahlweise" templateValueStatus="defined">12</ConfiguredDefault>
+ <Link association="HausratGrunddeckungstyp" defaultCardinality="1" maxCardinality="1" minCardinality="1" target="produkte_2022.HRD-Kompakt 2022-01" targetRuntimeId="hausrat.HRD-Kompakt 2022-01" templateValueStatus="defined">
+  <Description locale="de"/>
+ </Link>
+</ProductCmpt>

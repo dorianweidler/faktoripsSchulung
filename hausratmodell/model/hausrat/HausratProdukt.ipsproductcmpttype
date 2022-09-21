@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProductCmptType2 xmlns="http://www.faktorzehn.org" changingOverTime="false" configurationForPolicyCmptType="true" policyCmptType="hausrat.HausratVertrag" since="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/ProductCmptType2.xsd" xml:space="preserve">
+ <Label locale="de"/>
+ <Description locale="de">Produktbausteinklasse für Hausratprodukte</Description>
+ <Attribute changingOverTime="false" datatype="String" modifier="published" name="produktname" since="1.0" visible="true">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Der Name des durch den Produktbaustein abgebildeten Produkts.</Description>
+  <ValueSet abstract="false">
+   <AllValues containsNull="true"/>
+  </ValueSet>
+ </Attribute>
+ <Attribute changingOverTime="false" datatype="String" modifier="published" name="kurzbezeichnung" since="1.0" visible="true">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de">Kurzbezeichnung des Produkts</Description>
+  <ValueSet abstract="false">
+   <AllValues containsNull="true"/>
+  </ValueSet>
+ </Attribute>
+ <Attribute changingOverTime="false" datatype="Money" modifier="published" name="vorschlagVersSummeProQm" since="1.0" visible="true">
+  <DefaultValue isNull="true"/>
+  <Label locale="de"/>
+  <Description locale="de"/>
+  <ValueSet abstract="false">
+   <AllValues containsNull="false"/>
+  </ValueSet>
+ </Attribute>
+ <Association associationType="aggr" changingOverTime="false" maxCardinality="1" minCardinality="1" modifier="published" relevant="true" since="1.0" target="hausrat.HausratGrunddeckungstyp" targetRoleSingular="HausratGrunddeckungstyp">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Association>
+ <Category defaultForProductCmptTypeAttributes="true" name="Eigenschaften" position="left">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Category>
+ <Category defaultForFormulaSignatureDefinitions="true" defaultForTableStructureUsages="true" name="Tabellen und Berechnungsvorschriften" position="left">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Category>
+ <Category defaultForValidationRules="true" name="Validierungsregeln" position="left">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Category>
+ <Category defaultForPolicyCmptTypeAttributes="true" name="Vorbelegungen und Wertebereiche" position="right">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Category>
+</ProductCmptType2>
