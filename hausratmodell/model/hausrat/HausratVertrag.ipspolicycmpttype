@@ -6,23 +6,30 @@
   <Label locale="de"/>
   <Description locale="de"/>
  </Association>
- <Attribute attributeType="changeable" changingOverTime="false" datatype="Integer" modifier="published" name="zahlweise" since="1.0" valueSetConfiguredByProduct="true">
+ <Association associationType="comp" configurable="true" inverseAssociation="HausratVertrag" maxCardinality="*" minCardinality="0" modifier="published" since="1.0" target="hausrat.HausratZusatzdeckung" targetRolePlural="zusatzdeckungen" targetRoleSingular="zusatzdeckung">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Association>
+ <Attribute attributeType="changeable" changingOverTime="false" datatype="hausrat.Zahlweise" modifier="published" name="zahlweise" since="1.0" valueSetConfiguredByProduct="true">
   <DefaultValue isNull="true"/>
   <Label locale="de"/>
   <Description locale="de">Die Zahlweise des Vertrages.</Description>
   <ValueSet abstract="false">
    <Enum>
     <Value>
-     <Data>1</Data>
-    </Value>
-    <Value>
-     <Data>2</Data>
+     <Data>12</Data>
     </Value>
     <Value>
      <Data>4</Data>
     </Value>
     <Value>
-     <Data>12</Data>
+     <Data>2</Data>
+    </Value>
+    <Value>
+     <Data>1</Data>
+    </Value>
+    <Value>
+     <Data>0</Data>
     </Value>
    </Enum>
   </ValueSet>

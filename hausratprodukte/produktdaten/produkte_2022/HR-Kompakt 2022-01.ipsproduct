@@ -48,4 +48,10 @@
  <Link association="HausratGrunddeckungstyp" defaultCardinality="1" maxCardinality="1" minCardinality="1" target="produkte_2022.HRD-Kompakt 2022-01" templateValueStatus="defined">
   <Description locale="de"/>
  </Link>
+ <Link association="zusatzdeckung" defaultCardinality="0" maxCardinality="1" minCardinality="0" target="produkte_2022.Fahrraddiebstahl 2022-01" templateValueStatus="defined">
+  <Description locale="de"/>
+ </Link>
+ <Link association="zusatzdeckung" defaultCardinality="0" maxCardinality="1" minCardinality="0" target="produkte_2022.Überspannung 2022-01" templateValueStatus="defined">
+  <Description locale="de"/>
+ </Link>
 </ProductCmpt>

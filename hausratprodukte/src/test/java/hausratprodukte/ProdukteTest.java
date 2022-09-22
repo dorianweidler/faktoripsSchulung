@@ -4,7 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.faktorips.runtime.ClassloaderRuntimeRepository;
-import org.faktorips.runtime.IRuntimeRepository;
+import org.faktorips.runtime.formula.groovy.GroovyFormulaEvaluatorFactory;
 import org.faktorips.values.Money;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,18 +13,26 @@ import de.faktorips.schulung.hausratmodell.hausrat.HausratGrunddeckung;
 import de.faktorips.schulung.hausratmodell.hausrat.HausratGrunddeckungstyp;
 import de.faktorips.schulung.hausratmodell.hausrat.HausratProdukt;
 import de.faktorips.schulung.hausratmodell.hausrat.HausratVertrag;
+import de.faktorips.schulung.hausratmodell.hausrat.HausratZusatzdeckung;
+import de.faktorips.schulung.hausratmodell.hausrat.HausratZusatzdeckungstyp;
+import de.faktorips.schulung.hausratmodell.hausrat.Risikoklasse;
 
 class ProdukteTest {
     
-    static IRuntimeRepository runtimeRepository;
+    static ClassloaderRuntimeRepository runtimeRepository;
     static HausratProdukt hrKompakt;
     static HausratProdukt hrOptimal;
+    static HausratZusatzdeckungstyp fahrradDiebstahl;
+    static HausratZusatzdeckungstyp ueberspannungsSchutz;
     
     @BeforeAll
     static void setup()  {
         runtimeRepository = ClassloaderRuntimeRepository.create("de/faktorips/schulung/hausratprodukte/internal/faktorips-repository-toc.xml");
+        runtimeRepository.setFormulaEvaluatorFactory(new GroovyFormulaEvaluatorFactory());
         hrKompakt = (HausratProdukt) runtimeRepository.getProductComponent("hausrat.HR-Kompakt 2022-01");
         hrOptimal = (HausratProdukt) runtimeRepository.getProductComponent("hausrat.HR Optimal 2022-01");
+        fahrradDiebstahl = (HausratZusatzdeckungstyp) runtimeRepository.getProductComponent("hausrat.Fahrraddiebstahl 2022-01");
+        ueberspannungsSchutz = (HausratZusatzdeckungstyp) runtimeRepository.getProductComponent("hausrat.Überspannung 2022-01");
     }
 
     @Test
@@ -105,6 +113,53 @@ class ProdukteTest {
         grunddeckung.berechneJahresbasisbeitrag();
         
         assertThat(grunddeckung.getJahresbasisbeitrag(), is(Money.euro(90)));
+    }
+    
+    @Test
+    public void testRisikoklasse() {
+        runtimeRepository.getEnumValues(Risikoklasse.class).stream().forEach(System.out::println);
+    }
+    
+    @Test
+    public void testZusatzdeckungFahrradVersSumme() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setWohnflaeche(100);
+        vertrag.setPlz("17236");
+        vertrag.setVersSumme(Money.euro(1000));
+        HausratZusatzdeckung fahrradDeckung = fahrradDiebstahl.createHausratZusatzdeckung();
+        vertrag.addZusatzdeckung(fahrradDeckung);
+        
+        assertThat(fahrradDeckung.getVersSumme(), is(Money.euro(10)));
+    }
+    
+    @Test
+    public void testZusatzdeckungFahrradVersSummeMaxVersSumme() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setVersSumme(Money.euro(1000000));
+        HausratZusatzdeckung fahrradDeckung = fahrradDiebstahl.createHausratZusatzdeckung();
+        vertrag.addZusatzdeckung(fahrradDeckung);
+        
+        assertThat(fahrradDeckung.getVersSumme(), is(fahrradDiebstahl.getMaximaleVersSumme()));
+    }
+    
+    @Test
+    public void testJahresbeitragZusatzdeckungFahrrad() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setVersSumme(Money.euro(1000));
+        HausratZusatzdeckung fahrradDeckung = fahrradDiebstahl.createHausratZusatzdeckung();
+        vertrag.addZusatzdeckung(fahrradDeckung);
+        
+        assertThat(fahrradDeckung.getJahresbasisbeitrag(), is(Money.euro(1)));
+    }
+    
+    @Test
+    public void testJahresbeitragZusatzdeckungUeberspannung() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setVersSumme(Money.euro(1000));
+        HausratZusatzdeckung ueberspannungsSchutzDeckung = ueberspannungsSchutz.createHausratZusatzdeckung();
+        vertrag.addZusatzdeckung(ueberspannungsSchutzDeckung);
+        
+        assertThat(ueberspannungsSchutzDeckung.getJahresbasisbeitrag(), is(Money.euro(31, 50)));
     }
 
 }

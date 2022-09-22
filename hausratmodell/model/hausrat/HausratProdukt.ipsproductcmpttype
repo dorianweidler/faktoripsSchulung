@@ -30,6 +30,10 @@
   <Label locale="de"/>
   <Description locale="de"/>
  </Association>
+ <Association associationType="aggr" changingOverTime="false" maxCardinality="*" minCardinality="0" modifier="published" relevant="true" since="1.0" target="hausrat.HausratZusatzdeckungstyp" targetRolePlural="zusatzdeckungen" targetRoleSingular="zusatzdeckung">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Association>
  <Category defaultForProductCmptTypeAttributes="true" name="Eigenschaften" position="left">
   <Label locale="de"/>
   <Description locale="de"/>

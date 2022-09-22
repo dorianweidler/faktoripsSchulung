@@ -31,12 +31,17 @@ import org.faktorips.runtime.CardinalityRange;
 import org.faktorips.runtime.model.annotation.IpsAssociationLinks;
 import org.w3c.dom.Element;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import org.faktorips.runtime.internal.ValueToXmlHelper;
 import org.faktorips.runtime.internal.IpsStringUtils;
 import org.faktorips.runtime.internal.EnumValues;
 import java.util.List;
 import org.faktorips.runtime.IProductComponent;
 import java.util.ArrayList;
+import org.faktorips.runtime.util.ProductComponentLinks;
+import org.faktorips.runtime.model.annotation.IpsAssociationRemover;
+import java.util.Collection;
+import java.util.Collections;
 import org.faktorips.runtime.internal.Range;
 import org.faktorips.runtime.annotation.IpsGenerated;
 
@@ -49,7 +54,7 @@ import org.faktorips.runtime.annotation.IpsGenerated;
  */
 @IpsProductCmptType(name = "hausrat.HausratProdukt")
 @IpsAttributes({ "produktname", "kurzbezeichnung", "vorschlagVersSummeProQm" })
-@IpsAssociations({ "HausratGrunddeckungstyp" })
+@IpsAssociations({ "HausratGrunddeckungstyp", "zusatzdeckung" })
 @IpsConfigures(HausratVertrag.class)
 @IpsDocumented(bundleName = "de.faktorips.schulung.hausratmodell.model-label-and-descriptions", defaultLocale = "de")
 public class HausratProdukt extends ProductComponent {
@@ -62,6 +67,14 @@ public class HausratProdukt extends ProductComponent {
      * @generated
      */
     private static final String XML_TAG_HAUSRAT_GRUNDDECKUNGSTYP = "HausratGrunddeckungstyp";
+    /**
+     * The name of the XML tag for the association zusatzdeckungen.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    private static final String XML_TAG_ZUSATZDECKUNGEN = "zusatzdeckung";
     /**
      * The name of the property produktname.
      *
@@ -119,7 +132,7 @@ public class HausratProdukt extends ProductComponent {
      *
      * @generated
      */
-    private Integer defaultValueZahlweise = null;
+    private Zahlweise defaultValueZahlweise = null;
     /**
      * Allowed set of values for property zahlweise.
      *
@@ -127,7 +140,7 @@ public class HausratProdukt extends ProductComponent {
      *
      * @generated
      */
-    private OrderedValueSet<Integer> allowedValuesForZahlweise = HausratVertrag.MAX_ALLOWED_VALUES_FOR_ZAHLWEISE;
+    private OrderedValueSet<Zahlweise> allowedValuesForZahlweise = HausratVertrag.MAX_ALLOWED_VALUES_FOR_ZAHLWEISE;
     /**
      * The default value for wohnflaeche.
      *
@@ -168,6 +181,15 @@ public class HausratProdukt extends ProductComponent {
      * @generated
      */
     private IProductComponentLink<HausratGrunddeckungstyp> hausratGrunddeckungstyp = null;
+
+    /**
+     * Member variable for the association Zusatzdeckungen.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    private Map<String, IProductComponentLink<HausratZusatzdeckungstyp>> zusatzdeckungen = new LinkedHashMap<>(0);
 
     /**
      * Creates a new HausratProdukt.
@@ -336,7 +358,7 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsDefaultValue("zahlweise")
     @IpsGenerated
-    public Integer getDefaultValueZahlweise() {
+    public Zahlweise getDefaultValueZahlweise() {
         return defaultValueZahlweise;
     }
 
@@ -349,7 +371,7 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsDefaultValueSetter("zahlweise")
     @IpsGenerated
-    public void setDefaultValueZahlweise(Integer defaultValueZahlweise) {
+    public void setDefaultValueZahlweise(Zahlweise defaultValueZahlweise) {
         if (getRepository() != null && !getRepository().isModifiable()) {
             throw new IllegalRepositoryModificationException();
         }
@@ -365,7 +387,7 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsAllowedValues("zahlweise")
     @IpsGenerated
-    public ValueSet<Integer> getAllowedValuesForZahlweise() {
+    public ValueSet<Zahlweise> getAllowedValuesForZahlweise() {
         return allowedValuesForZahlweise;
     }
 
@@ -381,11 +403,11 @@ public class HausratProdukt extends ProductComponent {
      */
     @IpsAllowedValuesSetter("zahlweise")
     @IpsGenerated
-    public void setAllowedValuesForZahlweise(ValueSet<Integer> allowedValuesForZahlweise) {
+    public void setAllowedValuesForZahlweise(ValueSet<Zahlweise> allowedValuesForZahlweise) {
         if (getRepository() != null && !getRepository().isModifiable()) {
             throw new IllegalRepositoryModificationException();
         }
-        this.allowedValuesForZahlweise = (OrderedValueSet<Integer>) allowedValuesForZahlweise;
+        this.allowedValuesForZahlweise = (OrderedValueSet<Zahlweise>) allowedValuesForZahlweise;
     }
 
     /**
@@ -613,6 +635,161 @@ public class HausratProdukt extends ProductComponent {
     }
 
     /**
+     * Returns the referenced zusatzdeckungen. Returns an empty array, if no object
+     * is referenced.
+     *
+     * @throws org.faktorips.runtime.ProductCmptNotFoundException if one of the
+     *                                                            referenced product
+     *                                                            component types
+     *                                                            can't be found.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsAssociation(name = "zusatzdeckung", pluralName = "zusatzdeckungen", kind = AssociationKind.Composition, targetClass = HausratZusatzdeckungstyp.class, min = 0, max = Integer.MAX_VALUE)
+    @IpsMatchingAssociation(source = HausratVertrag.class, name = "zusatzdeckung")
+    @IpsGenerated
+    public List<? extends HausratZusatzdeckungstyp> getZusatzdeckungen() {
+        List<HausratZusatzdeckungstyp> result = new ArrayList<>(zusatzdeckungen.size());
+        for (IProductComponentLink<HausratZusatzdeckungstyp> zusatzdeckung : zusatzdeckungen.values()) {
+            if (!zusatzdeckung.getCardinality().isEmpty()) {
+                result.add(zusatzdeckung.getTarget());
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Returns the zusatzdeckung at the indicated index.
+     *
+     * @throws IndexOutOfBoundsException                          if the given index
+     *                                                            is out of range
+     *                                                            (index is negative
+     *                                                            or is greater
+     *                                                            equal the number
+     *                                                            of targets).
+     * @throws org.faktorips.runtime.ProductCmptNotFoundException if the referenced
+     *                                                            product component
+     *                                                            cannot be found in
+     *                                                            the repository.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public HausratZusatzdeckungstyp getZusatzdeckung(int index) {
+        return ProductComponentLinks.getTarget(index, zusatzdeckungen);
+    }
+
+    /**
+     * Adds the given product component.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsAssociationAdder(association = "zusatzdeckung")
+    @IpsGenerated
+    public void addZusatzdeckung(HausratZusatzdeckungstyp target) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        this.zusatzdeckungen.put(target.getId(), new ProductComponentLink<>(this, target, "zusatzdeckung"));
+    }
+
+    /**
+     * Adds the given product component with the given cardinality.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsAssociationAdder(association = "zusatzdeckung", withCardinality = true)
+    @IpsGenerated
+    public void addZusatzdeckung(HausratZusatzdeckungstyp target, CardinalityRange cardinality) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        this.zusatzdeckungen.put(target.getId(),
+                new ProductComponentLink<>(this, target, cardinality, "zusatzdeckung"));
+    }
+
+    /**
+     * Removes the association to the given product component.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsAssociationRemover(association = "zusatzdeckung")
+    @IpsGenerated
+    public void removeZusatzdeckung(HausratZusatzdeckungstyp target) {
+        if (getRepository() != null && !getRepository().isModifiable()) {
+            throw new IllegalRepositoryModificationException();
+        }
+        this.zusatzdeckungen.remove(target.getId());
+    }
+
+    /**
+     * Returns the <code>ILink</code>s to the the referenced zusatzdeckungen.
+     * Returns a empty <code>Collection</code>, if no object is referenced.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsAssociationLinks(association = "zusatzdeckung")
+    @IpsGenerated
+    public Collection<IProductComponentLink<HausratZusatzdeckungstyp>> getLinksForZusatzdeckungen() {
+        return Collections.unmodifiableCollection(zusatzdeckungen.values());
+    }
+
+    /**
+     * Returns the <code>ILink</code> to the zusatzdeckung at the indicated index.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public IProductComponentLink<HausratZusatzdeckungstyp> getLinkForZusatzdeckung(
+            HausratZusatzdeckungstyp productComponent) {
+        return zusatzdeckungen.get(productComponent.getId());
+    }
+
+    /**
+     * Returns the cardinality for the number of allowed instanced for
+     * zusatzdeckung.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public CardinalityRange getCardinalityForZusatzdeckung(HausratZusatzdeckungstyp productCmpt) {
+        if (productCmpt != null) {
+            return zusatzdeckungen.containsKey(productCmpt.getId())
+                    ? zusatzdeckungen.get(productCmpt.getId()).getCardinality()
+                    : null;
+        }
+        return null;
+    }
+
+    /**
+     * Returns the number of zusatzdeckungen.
+     *
+     * @since 1.0
+     *
+     * @generated
+     */
+    @IpsGenerated
+    public int getNumOfzusatzdeckungen() {
+        return zusatzdeckungen.size();
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @generated
@@ -674,7 +851,8 @@ public class HausratProdukt extends ProductComponent {
                 .get(ValueToXmlHelper.CONFIGURED_DEFAULT_PREFIX + HausratVertrag.PROPERTY_ZAHLWEISE);
         if (defaultValueElement != null) {
             String value = ValueToXmlHelper.getValueFromElement(defaultValueElement);
-            defaultValueZahlweise = IpsStringUtils.isEmpty(value) ? null : Integer.valueOf(value);
+            defaultValueZahlweise = IpsStringUtils.isEmpty(value) ? null
+                    : Zahlweise.getValueByZahlungenProJahr(Integer.parseInt(value));
         }
         Element valueSetElement = configMap
                 .get(ValueToXmlHelper.CONFIGURED_VALUE_SET_PREFIX + HausratVertrag.PROPERTY_ZAHLWEISE);
@@ -682,10 +860,10 @@ public class HausratProdukt extends ProductComponent {
             EnumValues values = ValueToXmlHelper.getEnumValueSetFromElement(valueSetElement,
                     ValueToXmlHelper.XML_TAG_VALUE_SET);
             if (values != null) {
-                List<Integer> enumValues = new ArrayList<>();
+                List<Zahlweise> enumValues = new ArrayList<>();
                 for (int i = 0; i < values.getNumberOfValues(); i++) {
-                    enumValues.add(
-                            IpsStringUtils.isEmpty(values.getValue(i)) ? null : Integer.valueOf(values.getValue(i)));
+                    enumValues.add(IpsStringUtils.isEmpty(values.getValue(i)) ? null
+                            : Zahlweise.getValueByZahlungenProJahr(Integer.parseInt(values.getValue(i))));
                 }
                 allowedValuesForZahlweise = new OrderedValueSet<>(enumValues, values.containsNull(), null);
             }
@@ -752,6 +930,7 @@ public class HausratProdukt extends ProductComponent {
     protected void doInitReferencesFromXml(Map<String, List<Element>> elementsMap) {
         super.doInitReferencesFromXml(elementsMap);
         doInitHausratGrunddeckungstyp(elementsMap);
+        doInitZusatzdeckung(elementsMap);
     }
 
     /**
@@ -764,6 +943,22 @@ public class HausratProdukt extends ProductComponent {
             Element element = associationElements.get(0);
             hausratGrunddeckungstyp = new ProductComponentLink<>(this);
             hausratGrunddeckungstyp.initFromXml(element);
+        }
+    }
+
+    /**
+     * @generated
+     */
+    @IpsGenerated
+    private void doInitZusatzdeckung(Map<String, List<Element>> elementsMap) {
+        List<Element> associationElements = elementsMap.get(XML_TAG_ZUSATZDECKUNGEN);
+        if (associationElements != null) {
+            this.zusatzdeckungen = new LinkedHashMap<>(associationElements.size());
+            for (Element element : associationElements) {
+                IProductComponentLink<HausratZusatzdeckungstyp> link = new ProductComponentLink<>(this);
+                link.initFromXml(element);
+                this.zusatzdeckungen.put(link.getTargetId(), link);
+            }
         }
     }
 
@@ -801,6 +996,9 @@ public class HausratProdukt extends ProductComponent {
         if ("HausratGrunddeckungstyp".equals(linkName)) {
             return getLinkForHausratGrunddeckungstyp((HausratGrunddeckungstyp) target);
         }
+        if ("zusatzdeckung".equals(linkName)) {
+            return getLinkForZusatzdeckung((HausratZusatzdeckungstyp) target);
+        }
         return null;
     }
 
@@ -816,6 +1014,7 @@ public class HausratProdukt extends ProductComponent {
         if (getLinkForHausratGrunddeckungstyp() != null) {
             list.add(getLinkForHausratGrunddeckungstyp());
         }
+        list.addAll(getLinksForZusatzdeckungen());
         return list;
     }
 
