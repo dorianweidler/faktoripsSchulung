@@ -1,9 +1,16 @@
 package hausratprodukte;
 
+import static org.faktorips.testsupport.IpsMatchers.containsErrorMessage;
+import static org.faktorips.testsupport.IpsMatchers.containsNoErrorMessage;
+import static org.faktorips.testsupport.IpsMatchers.containsText;
+import static org.faktorips.testsupport.IpsMatchers.hasErrorMessage;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.faktorips.runtime.ClassloaderRuntimeRepository;
+import org.faktorips.runtime.MessageList;
+import org.faktorips.runtime.ValidationContext;
 import org.faktorips.runtime.formula.groovy.GroovyFormulaEvaluatorFactory;
 import org.faktorips.values.Money;
 import org.junit.jupiter.api.BeforeAll;
@@ -161,5 +168,77 @@ class ProdukteTest {
         
         assertThat(ueberspannungsSchutzDeckung.getJahresbasisbeitrag(), is(Money.euro(31, 50)));
     }
-
+    
+    @Test
+    public void testPruefeWohnflaeche() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        MessageList ml = vertrag.validate(new ValidationContext());
+        
+        assertThat(ml, containsErrorMessage());
+        assertThat(ml,  hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE));
+        assertThat(ml.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE), containsText("Wohnfläche"));
+    }
+    
+    @Test
+    public void testPruefeWohnflaecheWohnflaecheZuGroß() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setWohnflaeche(1000000);
+        MessageList ml = vertrag.validate(new ValidationContext());
+        
+        assertThat(ml, containsErrorMessage());
+        assertThat(ml,  hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE));
+        assertThat(ml.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_WOHNFLAECHE), containsText("Wohnfläche"));
+    }
+    
+    @Test
+    public void testPruefePlz() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        MessageList ml = vertrag.validate(new ValidationContext());
+        
+        assertThat(ml, containsErrorMessage());
+        assertThat(ml,  hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ));
+        assertThat(ml.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_PLZ), containsText("PLZ"));
+    }
+    
+    @Test
+    public void testPruefePlzFehlerhaftePlz() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setPlz("123");
+        MessageList ml = vertrag.validate(new ValidationContext());
+        
+        assertThat(ml, containsErrorMessage());
+        assertThat(ml,  hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ));
+        assertThat(ml.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_PLZ), containsText("123"));
+    }
+    
+    @Test
+    public void testPruefePlzFehlerhaftePlzZuLang() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setPlz("123456");
+        MessageList ml = vertrag.validate(new ValidationContext());
+        
+        assertThat(ml, containsErrorMessage());
+        assertThat(ml,  hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ));
+        assertThat(ml.getMessageByCode(HausratVertrag.MSG_CODE_PRUEFE_PLZ), containsText("123"));
+    }
+    
+    @Test
+    public void testPruefePlzKorrektePlz() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setPlz("12345");
+        MessageList ml = vertrag.validate(new ValidationContext());
+        
+        assertThat(ml, not(hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ)));
+    }
+    
+    @Test
+    public void testValidationCorrect() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setPlz("12345");
+        vertrag.setWohnflaeche(100);
+        MessageList ml = vertrag.validate(new ValidationContext());
+        
+        assertThat(ml, containsNoErrorMessage());
+        assertThat(ml, not(hasErrorMessage(HausratVertrag.MSG_CODE_PRUEFE_PLZ)));
+    }
 }

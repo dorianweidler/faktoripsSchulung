@@ -85,4 +85,24 @@ für den zu zahlenden Beitrag. </Description>
    </Range>
   </ValueSet>
  </Attribute>
+ <ValidationRuleDef activatedByDefault="true" changingOverTime="false" checkValueAgainstValueSetRule="true" configurableByProductComponent="true" messageCode="WOHNFLAECHE_UNGUELTIG" messageSeverity="error" modifier="published" name="pruefeWohnflaeche" since="1.0">
+  <ValidatedAttribute name="wohnflaeche"/>
+  <MessageText>
+   <InternationalString>
+    <LocalizedString locale="de" text="Wohnfläche {wohnflaeche} ist nicht im Bereich {bereich}"/>
+   </InternationalString>
+  </MessageText>
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </ValidationRuleDef>
+ <ValidationRuleDef activatedByDefault="true" changingOverTime="false" configurableByProductComponent="true" messageCode="error.HausratVertrag.pruefePlz" messageSeverity="error" modifier="published" name="pruefePlz" since="1.0">
+  <ValidatedAttribute name="plz"/>
+  <MessageText>
+   <InternationalString>
+    <LocalizedString locale="de" text="PLZ {plz} entspricht nicht dem angegebenen Format."/>
+   </InternationalString>
+  </MessageText>
+  <Label locale="de"/>
+  <Description locale="de">Prüft PLZ auf Validität</Description>
+ </ValidationRuleDef>
 </PolicyCmptType>
