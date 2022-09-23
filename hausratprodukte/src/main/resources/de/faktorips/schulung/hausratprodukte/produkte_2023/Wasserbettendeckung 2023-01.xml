@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProductCmpt productCmptType="hausrat.HausratZusatzdeckungstyp" runtimeId="hausrat.Wasserbettendeckung 2023-01" validFrom="2023-01-01" xml:space="preserve">
+ <validTo isNull="true"/>
+ <Description locale="de"/>
+ <AttributeValue attribute="maximaleVersSumme" templateValueStatus="defined">
+  <Value isNull="false" valueType="SingleValue">5000.00 EUR</Value>
+ </AttributeValue>
+ <AttributeValue attribute="versSummenFaktor" templateValueStatus="defined">
+  <Value isNull="false" valueType="SingleValue">0.01</Value>
+ </AttributeValue>
+ <Formula formulaSignature="jahresbasisbeitrag" templateValueStatus="defined">
+  <Expression>hausratZusatzdeckung.versSumme * 0.25</Expression>
+  <Description locale="de"/>
+  <compiledExpression><![CDATA[import org.faktorips.values.Money;
+import de.faktorips.schulung.hausratmodell.hausrat.HausratZusatzdeckung;
+import org.faktorips.values.Decimal;
+import java.math.RoundingMode;
+
+
+public Money berechneJahresbasisbeitrag(HausratZusatzdeckung hausratZusatzdeckung)
+{
+return hausratZusatzdeckung.getVersSumme().multiply(Decimal.valueOf("0.25"), RoundingMode.HALF_UP);
+}
+
+]]></compiledExpression>
+ </Formula>
+</ProductCmpt>
