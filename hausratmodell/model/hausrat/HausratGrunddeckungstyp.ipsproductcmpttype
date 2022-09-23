@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ProductCmptType2 xmlns="http://www.faktorzehn.org" changingOverTime="false" configurationForPolicyCmptType="true" policyCmptType="hausrat.HausratGrunddeckung" since="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/ProductCmptType2.xsd" xml:space="preserve">
+<ProductCmptType2 xmlns="http://www.faktorzehn.org" changingOverTime="false" configurationForPolicyCmptType="true" instancesIcon="icons/grunddeckung.png" policyCmptType="hausrat.HausratGrunddeckung" since="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.faktorzehn.org https://doc.faktorzehn.org/schema/faktor-ips/22.6/ProductCmptType2.xsd" xml:space="preserve">
  <Label locale="de"/>
  <Description locale="de"/>
- <TableStructureUsage changingOverTime="false" mandatoryTableContent="true" modifier="published" roleName="Tariftabelle" since="1.0">
+ <TableStructureUsage category="Beitragsberechnung" changingOverTime="false" mandatoryTableContent="true" modifier="published" roleName="Tariftabelle" since="1.0">
   <Label locale="de"/>
   <Description locale="de"/>
   <TableStructure tableStructure="hausrat.TariftabelleHausrat"/>
@@ -20,6 +20,10 @@
   <Description locale="de"/>
  </Category>
  <Category defaultForPolicyCmptTypeAttributes="true" name="Vorbelegungen und Wertebereiche" position="right">
+  <Label locale="de"/>
+  <Description locale="de"/>
+ </Category>
+ <Category name="Beitragsberechnung" position="left">
   <Label locale="de"/>
   <Description locale="de"/>
  </Category>
