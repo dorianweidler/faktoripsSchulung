@@ -232,10 +232,23 @@ class ProdukteTest {
     }
     
     @Test
+    public void testPruefeVersSummeZuKlein() {
+        HausratVertrag vertrag = hrOptimal.createHausratVertrag();
+        vertrag.setVersSumme(Money.euro(1));
+        MessageList ml = vertrag.validate(new ValidationContext());
+        final String errorCode = "INVALID.HausratVertrag.versSumme";
+        
+        assertThat(ml, containsErrorMessage());
+        assertThat(ml, hasErrorMessage(errorCode));
+        assertThat(ml.getMessageByCode(errorCode), containsText("Der Wert muss zwischen 10000.00 EUR und 5000000.00 EUR liegen."));
+    }
+    
+    @Test
     public void testValidationCorrect() {
         HausratVertrag vertrag = hrOptimal.createHausratVertrag();
         vertrag.setPlz("12345");
         vertrag.setWohnflaeche(100);
+        vertrag.setVersSumme(Money.euro(50_000));
         MessageList ml = vertrag.validate(new ValidationContext());
         
         assertThat(ml, containsNoErrorMessage());

@@ -54,6 +54,7 @@ import java.util.Iterator;
 import org.faktorips.runtime.IModelObjectVisitor;
 import org.faktorips.runtime.MessageList;
 import org.faktorips.runtime.IValidationContext;
+import org.faktorips.runtime.validation.GenericRelevanceValidation;
 import org.faktorips.runtime.Severity;
 import org.faktorips.runtime.model.annotation.IpsValidationRule;
 import org.faktorips.runtime.model.annotation.IpsConfiguredValidationRule;
@@ -1228,6 +1229,7 @@ public class HausratVertrag extends AbstractModelObject
         if (!super.validateSelf(ml, context)) {
             return STOP_VALIDATION;
         }
+        ml.add(GenericRelevanceValidation.of(this, HausratVertrag.class, PROPERTY_VERSSUMME, context));
         if (!pruefeWohnflaeche(ml, context)) {
             return STOP_VALIDATION;
         }
@@ -1326,15 +1328,18 @@ public class HausratVertrag extends AbstractModelObject
     /**
      * Prüft PLZ auf Validität
      * <p>
+     *
      * Executes the rule pruefePlz and adds a message to the given list if the
      * object is invalid.
-     * 
+     *
      * @param ml      list to which validation errors are added
      * @param context the validation context
      * @return <code>true</code>, if the validation should be continued,
      *         <code>false</code> if it should be stopped after processing this
      *         rule.
+     *
      * @since 1.0
+     *
      * @restrainedmodifiable
      */
     @IpsValidationRule(name = "pruefePlz", msgCode = MSG_CODE_PRUEFE_PLZ, severity = Severity.ERROR)
